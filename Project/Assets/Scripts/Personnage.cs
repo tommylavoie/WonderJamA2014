@@ -5,13 +5,12 @@ public class Personnage : MonoBehaviour {
 
     public int vie;
     public int attaque;
-    public int speed;
+    public int speed = 5;
     public int movingScale = 2;
 
 	// Use this for initialization
 	void Start () 
     {
-	
 	}
 	
 	// Update is called once per frame
@@ -47,5 +46,12 @@ public class Personnage : MonoBehaviour {
     public void Defend(int enemyForce)
     {
         vie -= enemyForce;
+    }
+
+    public void setStats(int vieRecu, int attaqueRecu, int speedRecu)
+    {
+        vie = vieRecu;
+        attaque = attaqueRecu;
+        speed = speedRecu;
     }
 }
