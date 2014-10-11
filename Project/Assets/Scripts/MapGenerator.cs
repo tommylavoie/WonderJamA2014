@@ -17,6 +17,7 @@ public class MapGenerator : MonoBehaviour
 	public GameObject mountainTile;
 	public GameObject mudTile;
 	public GameObject spikeTile;
+	public GameObject fog;
 	
 	public GameObject ZombieMale;
 	public GameObject ZombieFemale;
@@ -27,8 +28,6 @@ public class MapGenerator : MonoBehaviour
 	public GameObject healUp;
 	public GameObject attackUp;
 	public GameObject speedUp;
-
-	public GameObject fog;
 	
 	// Use this for initialization
 	void Start () 
@@ -39,12 +38,11 @@ public class MapGenerator : MonoBehaviour
 		fogManager = FogManager.getInstance();
 
 		generateTiles();
+		generateFog();
 		
 		generateZombies();
 		generateEnnemis();
 		generatePowerUps();
-
-		//generateFog();
 	}
 	
 	void generateTiles()
@@ -145,6 +143,23 @@ public class MapGenerator : MonoBehaviour
 			}
 		}
 	}
+
+	void generateFog()
+	{
+		float initialX = transform.position.x-95;
+		float initialY = transform.position.y-95;
+		
+		for(int i=0;i<width;i++)
+		{
+			for(int j=0;j<height;j++)
+			{
+				fog.transform.position = new Vector3(initialY+(10*i),initialX+(10*j), -0.1f);
+				Object fogInstance = Instantiate(fog);
+				GameObject theFog = (GameObject)fogInstance;
+				fogManager.addFog(i,j,theFog);
+			}
+		}
+	}
 	
 	void generateZombies()
 	{
@@ -168,6 +183,7 @@ public class MapGenerator : MonoBehaviour
 				tileManager.addEntityToTile(x,y,control);
 				turnManager.zombieMale = control;
 				control.sprite = zomb;
+				fogManager.unFog(x,y);
 				onGround = true;
 			}
 		}
@@ -189,6 +205,7 @@ public class MapGenerator : MonoBehaviour
 				tileManager.addEntityToTile(x,y,control);
 				turnManager.zombieFemale = control;
 				control.sprite = zomb;
+				fogManager.unFog(x,y);
 				onGround = true;
 			}
 		}
@@ -210,7 +227,7 @@ public class MapGenerator : MonoBehaviour
 	{
 		float initialX = transform.position.x-95;
 		float initialY = transform.position.y-95;
-		int ennemies = 1;
+		int ennemies = Random.Range (5,8);
 		
 		int cpt = 0;
 		while(cpt != ennemies)
@@ -317,23 +334,6 @@ public class MapGenerator : MonoBehaviour
 		}
 	}
 
-	void generateFog()
-	{
-		float initialX = transform.position.x-95;
-		float initialY = transform.position.y-95;
-
-		for(int i=0;i<width;i++)
-		{
-			for(int j=0;j<height;j++)
-			{
-				fog.transform.position = new Vector3(initialY+(10*j),initialX+(10*i), -0.1f);
-				Object fogInstance = Instantiate(fog);
-				GameObject theFog = (GameObject)fogInstance;
-				fogManager.addFog(i,j,theFog);
-			}
-		}
-	}
-	
 	// Update is called once per frame
 	void Update () 
 	{

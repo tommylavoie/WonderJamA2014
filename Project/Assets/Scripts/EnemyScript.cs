@@ -125,6 +125,8 @@ public class EnemyScript : Personnage {
         return null;
     }
 
+    
+
 	public static int GHOST = 0;
 	public static int ELEPHANT = 1;
 	public static int FISH = 2;

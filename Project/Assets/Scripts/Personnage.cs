@@ -7,6 +7,7 @@ public class Personnage : Entity {
     public int vieMaximale;
     public int attaque;
     public int speed = 1;
+    public int maxSpeed;
     public int movingScale = 10;
     int movementUnit;
     int movementX;
@@ -29,6 +30,10 @@ public class Personnage : Entity {
                 movementSynchronisation();
             }
         }
+        else
+        {
+            transform.position = new Vector3(-95 + (10 * getX()), -95 + (10 * getY()), 0);
+        }
 	}
 
     public void MoveRight()
@@ -37,10 +42,6 @@ public class Personnage : Entity {
         {
             if (TileManager.getInstance().getTile(getX() + 1, getY()).getType() != Tile.MOUNTAIN)
             {
-                if (getIdentity() == "Enemy")
-                {
-                    Debug.Log("hey");
-                }
                 setPosition(getX() + 1, getY());
                 movementUnit = movingScale;
                 movementX = 1;
@@ -135,6 +136,12 @@ public class Personnage : Entity {
         vie = vieRecu;
         attaque = attaqueRecu;
         speed = speedRecu;
+        maxSpeed = speedRecu;
+    }
+
+    public void setSpeedBack()
+    {
+        speed = maxSpeed;
     }
 
     public void decreaseSpeed(int speedReduced)
