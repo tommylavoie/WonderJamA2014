@@ -35,7 +35,9 @@ public class EnemyScript : Personnage {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update () 
+	{
+		base.Update();
 	}
 
     // Function 
@@ -45,7 +47,8 @@ public class EnemyScript : Personnage {
             ZombieController player = isThereNearbyPlayer();
             if (player == null)
             { // Attack if there's a player nearby, move if not
-                switch (Random.Range(0, 4))
+				int random = Random.Range(0, 4);
+                switch (random)
                 {
 
                     case 0:{

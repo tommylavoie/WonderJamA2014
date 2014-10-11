@@ -15,6 +15,7 @@ public class Entity : MonoBehaviour
 	int x;
 	int y;
     string identity;
+	public GameObject sprite;
 
 	public Entity ()
 	{
