@@ -36,4 +36,15 @@ class TileManager
 	{
 		tiles[x][y] = tile;
 	}
+
+    public void addEntityToTile(int x, int y, Entity entity)
+    {
+        tiles[x][y].addEntity(entity);
+    }
+
+    public void changeEntityPosition(int oldX, int oldY, int newX, int newY, Entity entity)
+    {
+        tiles[oldX][oldY].removeEntity(entity);
+        tiles[newX][newY].addEntity(entity);
+    }
 }
