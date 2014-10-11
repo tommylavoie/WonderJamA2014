@@ -31,7 +31,6 @@ public class Personnage : Entity {
     {
         if (speed > 0)
         {
-            foreach(Entity e in TileManager.getInstance().getTile(getX() + 1, getY()).getEntities())
                 setPosition(getX() + 1, getY());
                 movementUnit = movingScale;
                 movementX = 1;
