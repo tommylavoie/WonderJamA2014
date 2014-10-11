@@ -12,7 +12,7 @@ public class EnemyScript : Personnage {
 
 	public EnemyScript()
 	{
-		setName("Enemy");
+		setIdentity("Enemy");
 		enemyType = Random.Range(0, 3);
 		switch (enemyType)
 		{

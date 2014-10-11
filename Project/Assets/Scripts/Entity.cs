@@ -14,14 +14,14 @@ public class Entity : MonoBehaviour
 {
 	int x;
 	int y;
-    string name;
+    string identity;
 
 	public Entity ()
 	{
-        name = "";
-		x = 0;
+        setIdentity("");
+		/*x = 0;
 		y = 0;
-        TileManager.getInstance().addEntityToTile(x, y, this);
+        TileManager.getInstance().addEntityToTile(x, y, this);*/
 	}
 
 	public void setPosition(int x, int y)
@@ -49,10 +49,15 @@ public class Entity : MonoBehaviour
 		return TileManager.getInstance().getTile(x, y);
 	}
 
-    public void setName(string leName)
+    public void setIdentity(string leName)
     {
-        this.name = leName;
+		this.identity = leName;
     }
+
+	public string getIdentity()
+	{
+		return identity;
+	}
 }
 
 

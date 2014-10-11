@@ -10,7 +10,7 @@ public class PowerUp : Entity {
 
 	public PowerUp()
 	{
-		setName("PowerUp");
+		setIdentity("PowerUp");
 		type = Random.Range(0, 3);
 		switch (type)
 		{

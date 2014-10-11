@@ -7,53 +7,53 @@ public class MapGenerator : MonoBehaviour
 {
 	public static int width = 20;
 	public static int height = 20;
-
+	
 	TileManager tileManager;
 	EnemyManager enemyManager;
-
+	
 	public GameObject groundTile;
 	public GameObject mountainTile;
 	public GameObject mudTile;
 	public GameObject spikeTile;
-
+	
 	public GameObject ZombieMale;
 	public GameObject ZombieFemale;
 	public GameObject elephant;
 	public GameObject ghost;
 	public GameObject fish;
-
+	
 	public GameObject healUp;
 	public GameObject attackUp;
 	public GameObject speedUp;
-
+	
 	// Use this for initialization
 	void Start () 
-    {
+	{
 		tileManager = TileManager.getInstance();
 		enemyManager = EnemyManager.getInstance();
 		generateTiles();
-
+		
 		generateZombies();
 		generateEnnemis();
 		generatePowerUps();
 	}
-
+	
 	void generateTiles()
 	{
 		float initialX = transform.position.x-95;
 		float initialY = transform.position.y-95;
-
+		
 		int mountains = Random.Range (65,81);
 		int mud = Random.Range(30, 40);
 		int spikes = Random.Range (10,20);
-
+		
 		for(int i=0;i<20;i++)
 		{
 			Tile tile = new Tile(Tile.MOUNTAIN);
 			tileManager.changeTile(i,0,tile);
 			mountainTile.transform.position = new Vector3(initialY+(0),initialX+(10*i), 0);
 			Instantiate(mountainTile);
-
+			
 			Tile tile2 = new Tile(Tile.MOUNTAIN);
 			tileManager.changeTile(i,19,tile2);
 			mountainTile.transform.position = new Vector3(initialY+(190),initialX+(10*i), 0);
@@ -65,19 +65,19 @@ public class MapGenerator : MonoBehaviour
 			tileManager.changeTile(0,i,tile);
 			mountainTile.transform.position = new Vector3(initialY+(i*10),initialX+(0), 0);
 			Instantiate(mountainTile);
-
+			
 			Tile tile2 = new Tile(Tile.MOUNTAIN);
 			tileManager.changeTile(19,i,tile2);
 			mountainTile.transform.position = new Vector3(initialY+(i*10),initialX+(190), 0);
 			Instantiate(mountainTile);
 		}
-
+		
 		int cpt = 0;
 		while(cpt != mountains)
 		{
 			int x = Random.Range(1,19);
 			int y = Random.Range(1,19);
-
+			
 			if(tileManager.getTile(x,y).getType() == Tile.EMPTY)
 			{
 				Tile tile = new Tile(Tile.MOUNTAIN);
@@ -87,7 +87,7 @@ public class MapGenerator : MonoBehaviour
 				cpt++;
 			}
 		}
-
+		
 		cpt = 0;
 		while(cpt != mud)
 		{
@@ -103,7 +103,7 @@ public class MapGenerator : MonoBehaviour
 				cpt++;
 			}
 		}
-
+		
 		cpt = 0;
 		while(cpt != spikes)
 		{
@@ -119,7 +119,7 @@ public class MapGenerator : MonoBehaviour
 				cpt++;
 			}
 		}
-
+		
 		//Reste des tiles
 		for(int i=1;i<width-1;i++)
 		{
@@ -136,12 +136,12 @@ public class MapGenerator : MonoBehaviour
 			}
 		}
 	}
-
+	
 	void generateZombies()
 	{
 		float initialX = transform.position.x-95;
 		float initialY = transform.position.y-95;
-
+		
 		bool onGround = false;
 		while(!onGround)
 		{
@@ -152,7 +152,11 @@ public class MapGenerator : MonoBehaviour
 			if(type == Tile.GROUND)
 			{
 				ZombieMale.transform.position = new Vector3(initialY+(10*x),initialX+(10*y), 0);
-				Instantiate(ZombieMale);
+				Object zomb2 = Instantiate(ZombieMale);
+				GameObject zomb = (GameObject)zomb2;
+				ZombieController control = (ZombieController)zomb.GetComponent<ZombieController>();
+				control.setPosition(x,y);
+				tileManager.addEntityToTile(x,y,control);
 				onGround = true;
 			}
 		}
@@ -167,17 +171,21 @@ public class MapGenerator : MonoBehaviour
 			if(type == Tile.GROUND)
 			{
 				ZombieFemale.transform.position = new Vector3(initialY+(10*x),initialX+(10*y), 0);
-				Instantiate(ZombieFemale);
+				Object zomb2 = Instantiate(ZombieFemale);
+				GameObject zomb = (GameObject)zomb2;
+				ZombieController control = (ZombieController)zomb.GetComponent<ZombieController>();
+				control.setPosition(x,y);
+				tileManager.addEntityToTile(x,y,control);
 				onGround = true;
 			}
 		}
 	}
-
+	
 	bool isCharacterOnTile(int x, int y)
 	{
 		var query =
 			from c in tileManager.getTile(x,y).getEntities()
-			where c.name == "Player" || c.name == "Enemy"
+				where c.name == "Player" || c.name == "Enemy"
 				select c;
 		if(query.Count() != 0)
 			return true;
@@ -190,7 +198,7 @@ public class MapGenerator : MonoBehaviour
 		float initialX = transform.position.x-95;
 		float initialY = transform.position.y-95;
 		int ennemies = Random.Range(5,8);
-
+		
 		int cpt = 0;
 		while(cpt != ennemies)
 		{
@@ -221,14 +229,14 @@ public class MapGenerator : MonoBehaviour
 			}
 		}
 	}
-
+	
 	void generatePowerUps()
 	{
 		float initialX = transform.position.x-95;
 		float initialY = transform.position.y-95;
-
+		
 		int powerUps = Random.Range(5,8);
-
+		
 		int cpt = 0;
 		while(cpt != powerUps)
 		{
@@ -261,7 +269,7 @@ public class MapGenerator : MonoBehaviour
 	
 	// Update is called once per frame
 	void Update () 
-    {
-	
+	{
+		
 	}
 }
