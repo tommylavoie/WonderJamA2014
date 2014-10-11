@@ -20,7 +20,7 @@ public class PowerUp : Entity {
 
 	public void setType(int type)
 	{
-		Debug.Log ("Set type for: " + type);
+		// Debug.Log ("Set type for: " + type);
 		this.type = type;
 		switch (type)
 		{
@@ -51,7 +51,7 @@ public class PowerUp : Entity {
 
     public void takePowerUp(Personnage lePersonnage)
     {
-		Debug.Log ("GOT IT " + type);
+		//Debug.Log ("GOT IT " + type);
         lePersonnage.vie += heal;
 
         if(lePersonnage.vieMaximale < lePersonnage.vie)
@@ -60,7 +60,7 @@ public class PowerUp : Entity {
         }
 
         lePersonnage.attaque += attackBonus;
-        lePersonnage.speed += movSupplementaire;
+        lePersonnage.maxSpeed += movSupplementaire;
 
         Tile laTuile = getTile();
         laTuile.removeEntity(this);

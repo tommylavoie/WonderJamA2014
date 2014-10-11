@@ -100,7 +100,7 @@ public class ZombieController : Personnage {
 
         if(actif)
         {
-            speed = 4;
+            speed = maxSpeed;
         }
     }
 
