@@ -10,6 +10,7 @@ public class MapGenerator : MonoBehaviour
 	
 	TileManager tileManager;
 	EnemyManager enemyManager;
+	TurnManager turnManager;
 	
 	public GameObject groundTile;
 	public GameObject mountainTile;
@@ -31,6 +32,7 @@ public class MapGenerator : MonoBehaviour
 	{
 		tileManager = TileManager.getInstance();
 		enemyManager = EnemyManager.getInstance();
+		turnManager = TurnManager.getInstance();
 		generateTiles();
 		
 		generateZombies();
@@ -157,6 +159,7 @@ public class MapGenerator : MonoBehaviour
 				ZombieController control = (ZombieController)zomb.GetComponent<ZombieController>();
 				control.setPosition(x,y);
 				tileManager.addEntityToTile(x,y,control);
+				turnManager.lesJoueurs.Add (control);
 				onGround = true;
 			}
 		}
@@ -176,6 +179,7 @@ public class MapGenerator : MonoBehaviour
 				ZombieController control = (ZombieController)zomb.GetComponent<ZombieController>();
 				control.setPosition(x,y);
 				tileManager.addEntityToTile(x,y,control);
+				turnManager.lesJoueurs.Add (control);
 				onGround = true;
 			}
 		}
