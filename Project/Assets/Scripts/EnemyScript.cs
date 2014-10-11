@@ -47,31 +47,32 @@ public class EnemyScript : Personnage {
             { // Attack if there's a player nearby, move if not
                 switch (Random.Range(0, 4))
                 {
+
                     case 0:{
                         bool canMove = true;
                         foreach (Entity e in TileManager.getInstance().getTile(getX() + 1, getY()).getEntities())
                         {
-                            if (e.name == "Enemy")
+                            if (e.getIdentity() == "Enemy")
                                 canMove = false;
                         }
-                        if (canMove) 
+                        if (canMove)
                             MoveRight();
                         break;}
                     case 1: {
                         bool canMove = true;
                         foreach (Entity e in TileManager.getInstance().getTile(getX() - 1, getY()).getEntities())
                         {
-                            if (e.name == "Enemy")
+                            if (e.getIdentity() == "Enemy")
                                 canMove = false;
                         }
-                        if (canMove) 
+                        if (canMove)
                             MoveLeft();
                         break;}
                     case 2: {
                             bool canMove = true;
                             foreach (Entity e in TileManager.getInstance().getTile(getX(), getY() + 1).getEntities())
                             {
-                                if (e.name == "Enemy")
+                                if (e.getIdentity() == "Enemy")
                                     canMove = false;
                             }
                             if (canMove)
@@ -81,7 +82,7 @@ public class EnemyScript : Personnage {
                         bool canMove = true;
                         foreach (Entity e in TileManager.getInstance().getTile(getX(), getY() - 1).getEntities())
                         {
-                            if (e.name == "Enemy")
+                            if (e.getIdentity() == "Enemy")
                                 MoveBackward();
                         }
                         if (canMove)
