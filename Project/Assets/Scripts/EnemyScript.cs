@@ -28,28 +28,67 @@ public class EnemyScript : Personnage {
 	
 	// Update is called once per frame
 	void Update () {
-	
-
 	}
 
-    // Function permettant le déplacement d'un ennemie
+    // Function 
     public void Action() {
-        ZombieController player = isThereNearbyPlayer();
-        if (player == null) { // Attack if true, move if false
-            switch (Random.Range(0, 4))
-            {
-                case 0: base.MoveRight(); break;
-                case 1: base.MoveBackward(); break;
-                case 2: base.MoveForward(); break;
-                case 3: base.MoveLeft(); break;
-            }
-        }
-        else // ATTACK THE PLAYER
+        while (speed > 0)
         {
-            base.Attack(player);
+            ZombieController player = isThereNearbyPlayer();
+            if (player == null)
+            { // Attack if there's a player nearby, move if not
+                switch (Random.Range(0, 4))
+                {
+                    case 0:{
+                        bool canMove = true;
+                        foreach (Entity e in TileManager.getInstance().getTile(getX() + 1, getY()).getEntities())
+                        {
+                            if (e.name == "Enemy")
+                                canMove = false;
+                        }
+                        if (canMove) 
+                            MoveRight();
+                        break;}
+                    case 1: {
+                        bool canMove = true;
+                        foreach (Entity e in TileManager.getInstance().getTile(getX() - 1, getY()).getEntities())
+                        {
+                            if (e.name == "Enemy")
+                                canMove = false;
+                        }
+                        if (canMove) 
+                            MoveLeft();
+                        break;}
+                    case 2: {
+                            bool canMove = true;
+                            foreach (Entity e in TileManager.getInstance().getTile(getX(), getY() + 1).getEntities())
+                            {
+                                if (e.name == "Enemy")
+                                    canMove = false;
+                            }
+                            if (canMove)
+                                MoveForward();
+                            break;}
+                    case 3:{
+                        bool canMove = true;
+                        foreach (Entity e in TileManager.getInstance().getTile(getX(), getY() - 1).getEntities())
+                        {
+                            if (e.name == "Enemy")
+                                MoveBackward();
+                        }
+                        if (canMove)
+                            MoveBackward();
+                        break;}
+                }
+            }
+            else // ATTACK THE PLAYER
+            {
+                Attack(player);
+            }
         }
     }
 
+    // Check if there's a player in one of the four adjacent tile (will only one if the 2 player are adjacent to the enemy
     ZombieController isThereNearbyPlayer() {
         foreach (Entity e in TileManager.getInstance().getTile(getX() + 1, getY()).getEntities())
             if (e.name == "Player") 
@@ -70,8 +109,7 @@ public class EnemyScript : Personnage {
             if (e.name == "Player")
             {
                 return (ZombieController)e;
-            }
-        
+            }    
         return null;
     }
 

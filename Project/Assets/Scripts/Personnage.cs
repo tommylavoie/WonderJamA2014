@@ -31,11 +31,16 @@ public class Personnage : Entity {
     {
         if (speed > 0)
         {
-                setPosition(getX() + 1, getY());
-                movementUnit = movingScale;
-                movementX = 1;
-                movementY = 0;
+            setPosition(getX() + 1, getY());
+            movementUnit = movingScale;
+            movementX = 1;
+            movementY = 0;
+            if (TileManager.getInstance().getTile(getX() + 1, getY()).getType() == Tile.MUD)
+                decreaseSpeed(2);
+            else
                 decreaseSpeed();
+            if (TileManager.getInstance().getTile(getX() + 1, getY()).getType() == Tile.SPIKE)
+                vie -= 3;
         }
     }
 
@@ -47,19 +52,12 @@ public class Personnage : Entity {
             movementUnit = movingScale;
             movementX = -1;
             movementY = 0;
-            decreaseSpeed();
-        }
-    }
-
-    public void MoveBackward()
-    {
-        if(speed > 0)
-        {
-            setPosition(getX(), getY() - 1);
-            movementUnit = movingScale;
-            movementX = 0;
-            movementY = -1;
-            decreaseSpeed();
+            if (TileManager.getInstance().getTile(getX() - 1, getY()).getType() == Tile.MUD)
+                decreaseSpeed(2);
+            else
+                decreaseSpeed();
+            if (TileManager.getInstance().getTile(getX() - 1, getY()).getType() == Tile.SPIKE)
+                vie -= 3;
         }
     }
 
@@ -71,13 +69,36 @@ public class Personnage : Entity {
             movementUnit = movingScale;
             movementX = 0;
             movementY = 1;
-            decreaseSpeed();
+            if (TileManager.getInstance().getTile(getX(), getY() + 1).getType() == Tile.MUD)
+                decreaseSpeed(2);
+            else
+                decreaseSpeed();
+            if (TileManager.getInstance().getTile(getX(), getY() + 1).getType() == Tile.SPIKE)
+                vie -= 3;
+        }
+    }
+
+    public void MoveBackward()
+    {
+        if (speed > 0)
+        {
+            setPosition(getX(), getY() - 1);
+            movementUnit = movingScale;
+            movementX = 0;
+            movementY = -1;
+            if (TileManager.getInstance().getTile(getX(), getY() - 1).getType() == Tile.MUD)
+                decreaseSpeed(2);
+            else
+                decreaseSpeed();
+            if (TileManager.getInstance().getTile(getX(), getY() - 1).getType() == Tile.SPIKE)
+                vie -= 3;
         }
     }
 
     public void Attack(Personnage Enemy)
     {
         Enemy.Defend(attaque);
+        decreaseSpeed();
     }
 
     public void Defend(int enemyForce)
@@ -92,11 +113,11 @@ public class Personnage : Entity {
         speed = speedRecu;
     }
 
-    public void decreaseSpeed()
+    public void decreaseSpeed(int speedReduced = 1)
     {
         if (speed > 0)
         {
-            speed--;
+            speed -= speedReduced;
         }
         else if(name == "Player")
         {

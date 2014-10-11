@@ -50,7 +50,11 @@ public class ZombieController : Personnage {
                         isPowerUp.takePowerUp(this);
                     }
                 }
-                
+            }
+
+            if (vie <= 0)
+            {
+                // #LOSETHEGAME
             }
 
             if (Input.GetKeyDown(KeyCode.LeftArrow))
