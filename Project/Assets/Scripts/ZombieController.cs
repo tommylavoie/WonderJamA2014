@@ -22,7 +22,7 @@ public class ZombieController : Personnage {
             cameraFollow();
             if (vie <= 0)
             {
-                // #LOSETHEGAME
+                Application.LoadLevel("GameOverScreen");
             }
 
             if (Input.GetKeyDown(KeyCode.RightArrow))
@@ -79,7 +79,7 @@ public class ZombieController : Personnage {
             }
             if (e.getIdentity() == "Player" && e != this)
             {
-                // ADD #WINTHEGAMEFUNCTION
+                Application.LoadLevel("WinScreen");
             }
         }
         if (isEnemy != null)
