@@ -31,11 +31,12 @@ public class Personnage : Entity {
     {
         if (speed > 0)
         {
-            base.setPosition(base.getX() + 1, base.getY());
-            movementUnit = movingScale;
-            movementX = 1;
-            movementY = 0;
-            decreaseSpeed();
+            foreach(Entity e in TileManager.getInstance().getTile(getX() + 1, getY()).getEntities())
+                setPosition(getX() + 1, getY());
+                movementUnit = movingScale;
+                movementX = 1;
+                movementY = 0;
+                decreaseSpeed();
         }
     }
 
@@ -43,7 +44,7 @@ public class Personnage : Entity {
     {
         if(speed > 0)
         {
-            base.setPosition(base.getX() - 1, base.getY());
+            setPosition(getX() - 1, getY());
             movementUnit = movingScale;
             movementX = -1;
             movementY = 0;
@@ -55,7 +56,7 @@ public class Personnage : Entity {
     {
         if(speed > 0)
         {
-            base.setPosition(base.getX(), base.getY() - 1);
+            setPosition(getX(), getY() - 1);
             movementUnit = movingScale;
             movementX = 0;
             movementY = -1;
@@ -67,7 +68,7 @@ public class Personnage : Entity {
     {
         if(speed > 0)
         {
-            base.setPosition(base.getX(), base.getY() + 1);
+            setPosition(getX(), getY() + 1);
             movementUnit = movingScale;
             movementX = 0;
             movementY = 1;
