@@ -41,6 +41,7 @@
 Assets/Scripts/EnemyManager.cs
 Assets/Scripts/EnemyScript.cs
 Assets/Scripts/Entity.cs
+Assets/Scripts/FogManager.cs
 Assets/Scripts/MainMenu.cs
 Assets/Scripts/MapGenerator.cs
 Assets/Scripts/Personnage.cs

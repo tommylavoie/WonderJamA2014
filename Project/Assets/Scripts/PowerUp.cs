@@ -62,8 +62,8 @@ public class PowerUp : Entity {
         lePersonnage.attaque += attackBonus;
         lePersonnage.speed += movSupplementaire;
 
-        Tile laTuile = getTile();
-        laTuile.removeEntity(this);
+        Destroy(this);
+        Destroy(sprite);
     }
 
 	public static int HEAL = 0;
