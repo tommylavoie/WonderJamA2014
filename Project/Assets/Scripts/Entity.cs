@@ -8,8 +8,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 using System;
+using UnityEngine;
 
-public class Entity
+public class Entity : MonoBehaviour
 {
 	int x;
 	int y;

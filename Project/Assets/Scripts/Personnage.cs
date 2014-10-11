@@ -1,12 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Personnage : MonoBehaviour {
+public class Personnage : Entity {
 
     public int vie;
     public int attaque;
-    public int speed = 5;
+    public int speed = 1;
     public int movingScale = 2;
+    int movementUnit;
+    int movementX;
+    int movementY;
 
 	// Use this for initialization
 	void Start () 
@@ -16,26 +19,47 @@ public class Personnage : MonoBehaviour {
 	// Update is called once per frame  
 	void Update () 
     {
+        if (movementUnit > 0)
+        {
+            transform.Translate(new Vector3(movementX, movementY, 0));
+            movementUnit--;
+        }
 	}
 
     public void MoveRight()
     {
-        transform.Translate(new Vector3(movingScale, 0, 0));
+        base.setPosition(base.getX() + 1, base.getY());
+        movementUnit = 50;
+        movementX = 1;
+        movementY = 0;
+        //transform.Translate(new Vector3(movingScale, 0, 0));
     }
 
     public void MoveLeft()
     {
-        transform.Translate(new Vector3(-movingScale, 0, 0));
+        base.setPosition(base.getX() - 1, base.getY());
+        movementUnit = 50;
+        movementX = -1;
+        movementY = 0;
+        //transform.Translate(new Vector3(-movingScale, 0, 0));
     }
 
     public void MoveBackward()
     {
-        transform.Translate(new Vector3(0, -movingScale, 0));
+        base.setPosition(base.getX(), base.getY() - 1);
+        movementUnit = 50;
+        movementX = 0;
+        movementY = -1;
+        //transform.Translate(new Vector3(0, -movingScale, 0));
     }
 
     public void MoveForward()
     {
-        transform.Translate(new Vector3(0, movingScale, 0));
+        base.setPosition(base.getX(), base.getY() + 1);
+        movementUnit = 50;
+        movementX = 0;
+        movementY = 1;
+        //transform.Translate(new Vector3(0, movingScale, 0));
     }
 
     public void Attack(Personnage Enemy)

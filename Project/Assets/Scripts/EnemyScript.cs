@@ -20,6 +20,7 @@ public class EnemyScript : Personnage {
         switch (type)
         {
             // setStats(vie, Attack, speed)
+            // ADD SPRITE FOR EVERYONE
             case 0: base.setStats(3, 1, 4); break;
             case 1: base.setStats(10, 1, 1); break;
             case 2: base.setStats(5, 3, 1); break;
