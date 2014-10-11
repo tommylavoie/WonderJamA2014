@@ -118,11 +118,13 @@ public class Personnage : Entity {
         if (speed > 0)
         {
             speed -= speedReduced;
-        }
-        else if (base.getIdentity() == "Player")
-        {
-            TurnManager.getInstance().changeActivePlayer();
-            EnemyManager.getInstance().updateEnemies();
+
+            if(speed == 0)
+            {
+                Debug.Log("Changing");
+                TurnManager.getInstance().changeActivePlayer();
+                EnemyManager.getInstance().updateEnemies();
+            }
         }
     }
 }
