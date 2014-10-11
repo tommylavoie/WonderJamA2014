@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class Tile : MonoBehaviour
+public class Tile
 {
 	List<Entity> entities;
     int width;
@@ -20,12 +20,14 @@ public class Tile : MonoBehaviour
 
 	public void addEntity(Entity entity)
 	{
-		entities.Add(entity);
+        if(entities != null)
+		    entities.Add(entity);
 	}
 
 	public void removeEntity(Entity entity)
 	{
-		entities.Remove(entity);
+        if (entities != null)
+		    entities.Remove(entity);
 	}
 
 	public List<Entity> getEntities()
