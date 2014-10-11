@@ -7,7 +7,7 @@ public class Personnage : Entity {
     public int vieMaximale;
     public int attaque;
     public int speed = 1;
-    public int movingScale = 2;
+    public int movingScale = 10;
     int movementUnit;
     int movementX;
     int movementY;
@@ -37,6 +37,10 @@ public class Personnage : Entity {
         {
             if (TileManager.getInstance().getTile(getX() + 1, getY()).getType() != Tile.MOUNTAIN)
             {
+                if (getIdentity() == "Enemy")
+                {
+                    Debug.Log("hey");
+                }
                 setPosition(getX() + 1, getY());
                 movementUnit = movingScale;
                 movementX = 1;

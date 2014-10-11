@@ -67,7 +67,6 @@ public class ZombieController : Personnage {
         {
             if (e.getIdentity() == "Enemy")
             {
-                Debug.Log("allo");
                 isEnemy = (EnemyScript)e;
             }
             if (e.getIdentity() == "PowerUp")

@@ -11,6 +11,7 @@ public class MapGenerator : MonoBehaviour
 	TileManager tileManager;
 	EnemyManager enemyManager;
 	TurnManager turnManager;
+	FogManager fogManager;
 	
 	public GameObject groundTile;
 	public GameObject mountainTile;
@@ -26,6 +27,8 @@ public class MapGenerator : MonoBehaviour
 	public GameObject healUp;
 	public GameObject attackUp;
 	public GameObject speedUp;
+
+	public GameObject fog;
 	
 	// Use this for initialization
 	void Start () 
@@ -33,11 +36,15 @@ public class MapGenerator : MonoBehaviour
 		tileManager = TileManager.getInstance();
 		enemyManager = EnemyManager.getInstance();
 		turnManager = TurnManager.getInstance();
+		fogManager = FogManager.getInstance();
+
 		generateTiles();
 		
 		generateZombies();
 		generateEnnemis();
 		generatePowerUps();
+
+		//generateFog();
 	}
 	
 	void generateTiles()
@@ -160,6 +167,7 @@ public class MapGenerator : MonoBehaviour
 				control.setPosition(x,y);
 				tileManager.addEntityToTile(x,y,control);
 				turnManager.zombieMale = control;
+				control.sprite = zomb;
 				onGround = true;
 			}
 		}
@@ -180,6 +188,7 @@ public class MapGenerator : MonoBehaviour
 				control.setPosition(x,y);
 				tileManager.addEntityToTile(x,y,control);
 				turnManager.zombieFemale = control;
+				control.sprite = zomb;
 				onGround = true;
 			}
 		}
@@ -189,7 +198,7 @@ public class MapGenerator : MonoBehaviour
 	{
 		var query =
 			from c in tileManager.getTile(x,y).getEntities()
-				where c.name == "Player" || c.name == "Enemy"
+				where c.getIdentity() == "Player" || c.getIdentity() == "Enemy"
 				select c;
 		if(query.Count() != 0)
 			return true;
@@ -201,7 +210,7 @@ public class MapGenerator : MonoBehaviour
 	{
 		float initialX = transform.position.x-95;
 		float initialY = transform.position.y-95;
-		int ennemies = Random.Range(5,8);
+		int ennemies = 1;
 		
 		int cpt = 0;
 		while(cpt != ennemies)
@@ -222,6 +231,7 @@ public class MapGenerator : MonoBehaviour
 					control.setEnemyType(type);
 					tileManager.addEntityToTile(x,y,control);
 					enemyManager.lesEnemies.Add (control);
+					control.sprite = enemy;
 
 				}
 				if(type == EnemyScript.ELEPHANT)
@@ -234,6 +244,7 @@ public class MapGenerator : MonoBehaviour
 					control.setEnemyType(type);
 					tileManager.addEntityToTile(x,y,control);
 					enemyManager.lesEnemies.Add (control);
+					control.sprite = enemy;
 				}
 				if(type == EnemyScript.FISH)
 				{
@@ -245,6 +256,7 @@ public class MapGenerator : MonoBehaviour
 					control.setEnemyType(type);
 					tileManager.addEntityToTile(x,y,control);
 					enemyManager.lesEnemies.Add (control);
+					control.sprite = enemy;
 				}
 				cpt++;
 			}
@@ -276,6 +288,7 @@ public class MapGenerator : MonoBehaviour
 					control.setPosition(x,y);
 					control.setType(type);
 					tileManager.addEntityToTile(x,y,control);
+					control.sprite = power;
 				}
 				if(type == PowerUp.ATTACK)
 				{
@@ -286,6 +299,7 @@ public class MapGenerator : MonoBehaviour
 					control.setPosition(x,y);
 					control.setType(type);
 					tileManager.addEntityToTile(x,y,control);
+					control.sprite = power;
 				}
 				if(type == PowerUp.SPEED)
 				{
@@ -296,8 +310,26 @@ public class MapGenerator : MonoBehaviour
 					control.setPosition(x,y);
 					control.setType(type);
 					tileManager.addEntityToTile(x,y,control);
+					control.sprite = power;
 				}
 				cpt++;
+			}
+		}
+	}
+
+	void generateFog()
+	{
+		float initialX = transform.position.x-95;
+		float initialY = transform.position.y-95;
+
+		for(int i=0;i<width;i++)
+		{
+			for(int j=0;j<height;j++)
+			{
+				fog.transform.position = new Vector3(initialY+(10*j),initialX+(10*i), -0.1f);
+				Object fogInstance = Instantiate(fog);
+				GameObject theFog = (GameObject)fogInstance;
+				fogManager.addFog(i,j,theFog);
 			}
 		}
 	}
