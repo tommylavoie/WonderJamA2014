@@ -30,6 +30,7 @@ public class ZombieController : Personnage {
                 if (checkNearby(1, 0))
                 {
                     MoveRight();
+					FogManager.getInstance().unFog(getX(), getY());
                 }
             }
 
@@ -38,6 +39,7 @@ public class ZombieController : Personnage {
                 if (checkNearby(-1, 0))
                 {
                     MoveLeft();
+					FogManager.getInstance().unFog(getX(), getY());
                 }
             }
 
@@ -46,6 +48,7 @@ public class ZombieController : Personnage {
                 if (checkNearby(0, 1))
                 {
                     MoveForward();
+					FogManager.getInstance().unFog(getX(), getY());
                 }
             }
 
@@ -54,6 +57,7 @@ public class ZombieController : Personnage {
                 if (checkNearby(0, -1))
                 {
                     MoveBackward();
+					FogManager.getInstance().unFog(getX(), getY());
                 }
             }
         }

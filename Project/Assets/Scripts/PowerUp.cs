@@ -20,7 +20,6 @@ public class PowerUp : Entity {
 
 	public void setType(int type)
 	{
-		// Debug.Log ("Set type for: " + type);
 		this.type = type;
 		switch (type)
 		{
