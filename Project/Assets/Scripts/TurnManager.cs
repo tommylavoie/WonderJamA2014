@@ -2,11 +2,12 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class TurnManager : MonoBehaviour{
+public class TurnManager {
 
     private static TurnManager instance;
 
-    public List<ZombieController> lesJoueurs;
+	public ZombieController zombieMale;
+	public ZombieController zombieFemale;
 
     public static TurnManager getInstance()
     {
@@ -19,14 +20,12 @@ public class TurnManager : MonoBehaviour{
 
     private TurnManager()
     {
-        lesJoueurs = new List<ZombieController>();
+        
     }
 
     public void changeActivePlayer()
     {
-        foreach(ZombieController z in lesJoueurs)
-        {
-            z.changeActive();
-        }
+		zombieMale.changeActive();
+		zombieFemale.changeActive();
     }
 }

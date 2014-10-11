@@ -168,6 +168,7 @@ public class ZombieController : Personnage {
 
         if(actif)
         {
+			Debug.Log ("AJSDHOISAJK");
             speed = 4;
         }
     }

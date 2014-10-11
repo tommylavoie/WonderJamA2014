@@ -159,7 +159,7 @@ public class MapGenerator : MonoBehaviour
 				ZombieController control = (ZombieController)zomb.GetComponent<ZombieController>();
 				control.setPosition(x,y);
 				tileManager.addEntityToTile(x,y,control);
-				turnManager.lesJoueurs.Add (control);
+				turnManager.zombieMale = control;
 				onGround = true;
 			}
 		}
@@ -179,7 +179,7 @@ public class MapGenerator : MonoBehaviour
 				ZombieController control = (ZombieController)zomb.GetComponent<ZombieController>();
 				control.setPosition(x,y);
 				tileManager.addEntityToTile(x,y,control);
-				turnManager.lesJoueurs.Add (control);
+				turnManager.zombieFemale = control;
 				onGround = true;
 			}
 		}
