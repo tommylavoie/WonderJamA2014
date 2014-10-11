@@ -124,4 +124,8 @@ public class Personnage : Entity {
             TurnManager.getInstance().changeActivePlayer();
         }
     }
+
+    public void afficherStats()
+    {
+    }
 }

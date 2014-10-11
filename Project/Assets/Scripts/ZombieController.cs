@@ -177,4 +177,10 @@ public class ZombieController : Personnage {
         Vector3 cameraPosition = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y, 0);
         Camera.main.transform.Translate(transform.position - cameraPosition);
     }
+
+    void OnGUI() 
+    {
+        GUI.Label(new Rect(Screen.width * 0.02f, Screen.height * 0.02f, Screen.width * 0.5f, Screen.height * 0.1f), "Actions Restantes: "+speed+
+            ", Vie: "+vie+"/"+vieMaximale+", Attaque: "+attaque);
+    }
 }
