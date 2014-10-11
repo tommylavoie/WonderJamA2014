@@ -26,7 +26,6 @@ public class EnemyManager{
     {
         foreach(EnemyScript enemy in lesEnemies)
         {
-			Debug.Log ("ENNEMI BOUCLE");
             enemy.Action();
         }
     }
