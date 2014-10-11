@@ -7,11 +7,15 @@ public class MapGenerator : MonoBehaviour
 {
 	public static int width = 20;
 	public static int height = 20;
+	public static int initialX = 0;
+	public static int initialY = 0;
 	
 	TileManager tileManager;
 	EnemyManager enemyManager;
 	TurnManager turnManager;
 	FogManager fogManager;
+
+	public GameObject background;
 	
 	public GameObject groundTile;
 	public GameObject mountainTile;
@@ -37,6 +41,7 @@ public class MapGenerator : MonoBehaviour
 		turnManager = TurnManager.getInstance();
 		fogManager = FogManager.getInstance();
 
+		adjustBackground();
 		generateTiles();
 		generateFog();
 		
@@ -44,17 +49,21 @@ public class MapGenerator : MonoBehaviour
 		generateEnnemis();
 		generatePowerUps();
 	}
+
+	void adjustBackground()
+	{
+		background.transform.position = new Vector3(initialX-20,initialY-20, 101);
+		background.transform.localScale = new Vector3(width+40,1,height+40);
+	}
 	
 	void generateTiles()
 	{
-		float initialX = transform.position.x-95;
-		float initialY = transform.position.y-95;
+		int total = (width-2)*(height-2);
+		int mountains = Random.Range ((int)(total*0.2),(int)(total*0.3));
+		int mud = Random.Range((int)(total*0.1), (int)(total*0.15));
+		int spikes = Random.Range ((int)(total*0.04),(int)(total*0.08));
 		
-		int mountains = Random.Range (65,81);
-		int mud = Random.Range(30, 40);
-		int spikes = Random.Range (10,20);
-		
-		for(int i=0;i<20;i++)
+		for(int i=0;i<width;i++)
 		{
 			Tile tile = new Tile(Tile.MOUNTAIN);
 			tileManager.changeTile(i,0,tile);
@@ -62,11 +71,11 @@ public class MapGenerator : MonoBehaviour
 			Instantiate(mountainTile);
 			
 			Tile tile2 = new Tile(Tile.MOUNTAIN);
-			tileManager.changeTile(i,19,tile2);
-			mountainTile.transform.position = new Vector3(initialY+(190),initialX+(10*i), 0);
+			tileManager.changeTile(i,height-1,tile2);
+			mountainTile.transform.position = new Vector3(initialY+((10*width)-10),initialX+(10*i), 0);
 			Instantiate(mountainTile);
 		}
-		for(int i=1;i<19;i++)
+		for(int i=1;i<width-1;i++)
 		{
 			Tile tile = new Tile(Tile.MOUNTAIN);
 			tileManager.changeTile(0,i,tile);
@@ -74,16 +83,16 @@ public class MapGenerator : MonoBehaviour
 			Instantiate(mountainTile);
 			
 			Tile tile2 = new Tile(Tile.MOUNTAIN);
-			tileManager.changeTile(19,i,tile2);
-			mountainTile.transform.position = new Vector3(initialY+(i*10),initialX+(190), 0);
+			tileManager.changeTile(width-1,i,tile2);
+			mountainTile.transform.position = new Vector3(initialY+(i*10),initialX+((10*height)-10), 0);
 			Instantiate(mountainTile);
 		}
 		
 		int cpt = 0;
 		while(cpt != mountains)
 		{
-			int x = Random.Range(1,19);
-			int y = Random.Range(1,19);
+			int x = Random.Range(1,width-1);
+			int y = Random.Range(1,height-1);
 			
 			if(tileManager.getTile(x,y).getType() == Tile.EMPTY)
 			{
@@ -98,8 +107,8 @@ public class MapGenerator : MonoBehaviour
 		cpt = 0;
 		while(cpt != mud)
 		{
-			int x = Random.Range(1,19);
-			int y = Random.Range(1,19);
+			int x = Random.Range(1,width-1);
+			int y = Random.Range(1,height-1);
 			
 			if(tileManager.getTile(x,y).getType() == Tile.EMPTY)
 			{
@@ -114,8 +123,8 @@ public class MapGenerator : MonoBehaviour
 		cpt = 0;
 		while(cpt != spikes)
 		{
-			int x = Random.Range(1,19);
-			int y = Random.Range(1,19);
+			int x = Random.Range(1,width-1);
+			int y = Random.Range(1,height-1);
 			
 			if(tileManager.getTile(x,y).getType() == Tile.EMPTY)
 			{
@@ -146,9 +155,6 @@ public class MapGenerator : MonoBehaviour
 
 	void generateFog()
 	{
-		float initialX = transform.position.x-95;
-		float initialY = transform.position.y-95;
-		
 		for(int i=0;i<width;i++)
 		{
 			for(int j=0;j<height;j++)
@@ -162,15 +168,12 @@ public class MapGenerator : MonoBehaviour
 	}
 	
 	void generateZombies()
-	{
-		float initialX = transform.position.x-95;
-		float initialY = transform.position.y-95;
-		
+	{	
 		bool onGround = false;
 		while(!onGround)
 		{
 			int x = Random.Range(1,3);
-			int y = Random.Range(1,19);
+			int y = Random.Range(1,height-1);
 			
 			int type = tileManager.getTile(x,y).getType();
 			if(type == Tile.GROUND)
@@ -191,9 +194,9 @@ public class MapGenerator : MonoBehaviour
 		onGround = false;
 		while(!onGround)
 		{
-			int x = Random.Range(16,19);
-			int y = Random.Range(1,19);
-			
+			int x = Random.Range(width-5,width-2);
+			int y = Random.Range(1,height-1);
+
 			int type = tileManager.getTile(x,y).getType();
 			if(type == Tile.GROUND)
 			{
@@ -225,15 +228,14 @@ public class MapGenerator : MonoBehaviour
 	
 	void generateEnnemis()
 	{
-		float initialX = transform.position.x-95;
-		float initialY = transform.position.y-95;
-		int ennemies = Random.Range (5,8);
+		int total = (width-2)*(height-2);
+		int ennemies = Random.Range ((int)(total*0.015),(int)(total*0.025));
 		
 		int cpt = 0;
 		while(cpt != ennemies)
 		{
-			int x = Random.Range(1,19);
-			int y = Random.Range(1,19);
+			int x = Random.Range(1,width-1);
+			int y = Random.Range(1,height-1);
 			
 			if(tileManager.getTile(x,y).getType() == Tile.GROUND && !isCharacterOnTile(x,y))
 			{
@@ -282,16 +284,13 @@ public class MapGenerator : MonoBehaviour
 	
 	void generatePowerUps()
 	{
-		float initialX = transform.position.x-95;
-		float initialY = transform.position.y-95;
-		
 		int powerUps = Random.Range(5,8);
 		
 		int cpt = 0;
 		while(cpt != powerUps)
 		{
-			int x = Random.Range(1,19);
-			int y = Random.Range(1,19);
+			int x = Random.Range(1,width-1);
+			int y = Random.Range(1,height-1);
 			
 			if(tileManager.getTile(x,y).getType() != Tile.MOUNTAIN)
 			{

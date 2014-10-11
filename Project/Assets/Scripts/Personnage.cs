@@ -32,7 +32,7 @@ public class Personnage : Entity {
         }
         else
         {
-            transform.position = new Vector3(-95 + (10 * getX()), -95 + (10 * getY()), 0);
+            transform.position = new Vector3(MapGenerator.initialX + (10 * getX()), MapGenerator.initialY + (10 * getY()), 0);
         }
 	}
 
