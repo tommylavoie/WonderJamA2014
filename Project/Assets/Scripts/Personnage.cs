@@ -98,5 +98,9 @@ public class Personnage : Entity {
         {
             speed--;
         }
+        else if(base.name == "Player")
+        {
+            TurnManager.getInstance().changeActivePlayer();
+        }
     }
 }
