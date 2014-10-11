@@ -33,6 +33,10 @@ public class Personnage : Entity {
         {
             if (TileManager.getInstance().getTile(getX() + 1, getY()).getType() != Tile.MOUNTAIN)
             {
+                if (getIdentity() == "Enemy")
+                {
+                    Debug.Log("hey");
+                }
                 setPosition(getX() + 1, getY());
                 movementUnit = movingScale;
                 movementX = 1;
