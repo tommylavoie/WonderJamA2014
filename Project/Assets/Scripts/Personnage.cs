@@ -31,12 +31,12 @@ public class Personnage : Entity {
     {
         if (speed > 0)
         {
-            foreach(Entity e in TileManager.getInstance().getTile(getX() + 1, getY()).getEntities())
-                setPosition(getX() + 1, getY());
-                movementUnit = movingScale;
-                movementX = 1;
-                movementY = 0;
-                decreaseSpeed();
+
+            setPosition(getX() + 1, getY());
+            movementUnit = movingScale;
+            movementX = 1;
+            movementY = 0;
+            decreaseSpeed();
         }
     }
 
@@ -99,7 +99,7 @@ public class Personnage : Entity {
         {
             speed--;
         }
-        else if(base.name == "Player")
+        else if(name == "Player")
         {
             TurnManager.getInstance().changeActivePlayer();
         }

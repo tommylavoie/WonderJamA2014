@@ -5,6 +5,7 @@ public class ZombieController : Personnage {
 
     public bool actif;
 
+
 	// Use this for initialization
 	void Start () {
         // setStats(vie, Attack, speed)
@@ -20,22 +21,138 @@ public class ZombieController : Personnage {
             base.Update();
             if (Input.GetKeyDown(KeyCode.RightArrow))
             {
-                base.MoveRight();
+                EnemyScript isEnemy = null;
+                PowerUp isPowerUp = null;
+                foreach (Entity e in TileManager.getInstance().getTile(getX() + 1, getY()).getEntities())
+                {
+                    if (e.name == "Enemy")
+                    {
+                        isEnemy = (EnemyScript)e;
+                    }
+                    if (e.name == "PowerUp")
+                    {
+                        isPowerUp = (PowerUp)e;
+                    }
+                    if (e.name == "Player")
+                    {
+                        // ADD #WINTHEGAMEFUNCTION
+                    }
+                }
+                if (isEnemy != null)
+                {
+                    Attack(isEnemy);
+                }
+                else
+                {
+                    MoveRight();
+                    if (isPowerUp != null)
+                    {
+                        isPowerUp.takePowerUp(this);
+                    }
+                }
+                
             }
 
             if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
-                base.MoveLeft();
+                EnemyScript isEnemy = null;
+                PowerUp isPowerUp = null;
+                foreach (Entity e in TileManager.getInstance().getTile(getX() - 1, getY()).getEntities())
+                {
+                    if (e.name == "Enemy")
+                    {
+                        isEnemy = (EnemyScript)e;
+                    }
+                    if (e.name == "PowerUp")
+                    {
+                        isPowerUp = (PowerUp)e;
+                    }
+                    if (e.name == "Player")
+                    {
+                        // ADD #WINTHEGAMEFUNCTION
+                    }
+                }
+                if (isEnemy != null)
+                {
+                    Attack(isEnemy);
+                }
+                else
+                {
+                    MoveLeft();
+                    if (isPowerUp != null)
+                    {
+                        isPowerUp.takePowerUp(this);
+                    }
+                }
+                
             }
 
             if (Input.GetKeyDown(KeyCode.UpArrow))
             {
-                base.MoveForward();
+                EnemyScript isEnemy = null;
+                PowerUp isPowerUp = null;
+                foreach (Entity e in TileManager.getInstance().getTile(getX(), getY() + 1).getEntities())
+                {
+                    if (e.name == "Enemy")
+                    {
+                        isEnemy = (EnemyScript)e;
+                    }
+                    if (e.name == "PowerUp")
+                    {
+                        isPowerUp = (PowerUp)e;
+                    }
+                    if (e.name == "Player")
+                    {
+                        // ADD #WINTHEGAMEFUNCTION
+                    }
+                }
+                if (isEnemy != null)
+                {
+                    Attack(isEnemy);
+                }
+                else
+                {
+                    MoveForward();
+                    if (isPowerUp != null)
+                    {
+                        isPowerUp.takePowerUp(this);
+                    }
+                }
+                
             }
 
             if (Input.GetKeyDown(KeyCode.DownArrow))
             {
-                base.MoveBackward();
+                EnemyScript isEnemy = null;
+                PowerUp isPowerUp = null;
+                foreach (Entity e in TileManager.getInstance().getTile(getX(), getY() - 1).getEntities())
+                {
+                    if (e.name == "Enemy")
+                    {
+                        isEnemy = (EnemyScript)e;
+                    }
+                    if (e.name == "PowerUp")
+                    {
+                        isPowerUp = (PowerUp)e;
+                    }
+                    if (e.name == "Player")
+                    {
+                        // ADD #WINTHEGAMEFUNCTION
+                    }
+                }
+                if (isEnemy != null)
+                {
+                    Attack(isEnemy);
+                }
+                else
+                {
+                    MoveBackward();
+                    if (isPowerUp != null)
+                    {
+                        isPowerUp.takePowerUp(this);
+                    }
+                }
+                
             }
         }
 	}
@@ -46,7 +163,7 @@ public class ZombieController : Personnage {
 
         if(actif)
         {
-            base.speed = 4;
+            speed = 4;
         }
     }
 }
