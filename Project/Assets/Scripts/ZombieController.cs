@@ -5,7 +5,6 @@ public class ZombieController : Personnage {
 
     public bool actif;
 
-
 	// Use this for initialization
 	void Start () {
         // setStats(vie, Attack, speed)
@@ -19,6 +18,7 @@ public class ZombieController : Personnage {
         if (actif)
         {
             base.Update();
+            cameraFollow();
             if (Input.GetKeyDown(KeyCode.RightArrow))
             {
                 EnemyScript isEnemy = null;
@@ -169,5 +169,11 @@ public class ZombieController : Personnage {
         {
             speed = 4;
         }
+    }
+
+    void cameraFollow()
+    {
+        Vector3 cameraPosition = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y, 0);
+        Camera.main.transform.Translate(transform.position - cameraPosition);
     }
 }
