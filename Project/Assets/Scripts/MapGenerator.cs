@@ -245,22 +245,36 @@ public class MapGenerator : MonoBehaviour
 			
 			if(tileManager.getTile(x,y).getType() != Tile.MOUNTAIN)
 			{
-				PowerUp powerUp = new PowerUp();
-				int type = powerUp.getType();
+				int type = Random.Range(0, 3);
 				if(type == PowerUp.HEAL)
 				{
 					healUp.transform.position = new Vector3(initialY+(10*x),initialX+(10*y), 0);
-					Instantiate(healUp);
+					Object powerInstance = Instantiate(healUp);
+					GameObject power = (GameObject)powerInstance;
+					PowerUp control = (PowerUp)power.GetComponent<PowerUp>();
+					control.setPosition(x,y);
+					control.setType(type);
+					tileManager.addEntityToTile(x,y,control);
 				}
 				if(type == PowerUp.ATTACK)
 				{
 					attackUp.transform.position = new Vector3(initialY+(10*x),initialX+(10*y), 0);
-					Instantiate(attackUp);
+					Object powerInstance = Instantiate(attackUp);
+					GameObject power = (GameObject)powerInstance;
+					PowerUp control = (PowerUp)power.GetComponent<PowerUp>();
+					control.setPosition(x,y);
+					control.setType(type);
+					tileManager.addEntityToTile(x,y,control);
 				}
 				if(type == PowerUp.SPEED)
 				{
 					speedUp.transform.position = new Vector3(initialY+(10*x),initialX+(10*y), 0);
-					Instantiate(speedUp);
+					Object powerInstance = Instantiate(speedUp);
+					GameObject power = (GameObject)powerInstance;
+					PowerUp control = (PowerUp)power.GetComponent<PowerUp>();
+					control.setPosition(x,y);
+					control.setType(type);
+					tileManager.addEntityToTile(x,y,control);
 				}
 				cpt++;
 			}

@@ -10,8 +10,19 @@ public class PowerUp : Entity {
 
 	public PowerUp()
 	{
-		setIdentity("PowerUp");
+
 		type = Random.Range(0, 3);
+	}
+
+	void Start()
+	{
+		setIdentity("PowerUp");
+	}
+
+	public void setType(int type)
+	{
+		Debug.Log ("Set type for: " + type);
+		this.type = type;
 		switch (type)
 		{
 		case 0: heal = 5;
@@ -41,6 +52,7 @@ public class PowerUp : Entity {
 
     public void takePowerUp(Personnage lePersonnage)
     {
+		Debug.Log ("GOT IT " + type);
         lePersonnage.vie += heal;
 
         if(lePersonnage.vieMaximale < lePersonnage.vie)
