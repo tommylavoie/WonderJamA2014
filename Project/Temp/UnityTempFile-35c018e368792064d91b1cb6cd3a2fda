@@ -2,8 +2,8 @@
 -target:library
 -nowarn:0169
 -out:Temp/Assembly-CSharp.dll
--r:D:/Programmes/Unity/Data/Managed/UnityEngine.dll
--r:D:/Programmes/Unity/Data/Managed/UnityEditor.dll
+-r:"C:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEngine.dll"
+-r:"C:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEditor.dll"
 -define:UNITY_4_5_4
 -define:UNITY_4_5
 -define:UNITY_STANDALONE_WIN
@@ -42,5 +42,5 @@ Assets/Scripts/EnemyScript.cs
 Assets/Scripts/Obstacle.cs
 Assets/Scripts/Personnage.cs
 Assets/Scripts/ZombieController.cs
--r:D:/Programmes/Unity/Data/Mono\lib/mono/unity\System.Runtime.Serialization.dll
--r:D:/Programmes/Unity/Data/Mono\lib/mono/unity\System.Xml.Linq.dll
+-r:"C:/Program Files (x86)/Unity/Editor/Data/Mono\lib/mono/unity\System.Runtime.Serialization.dll"
+-r:"C:/Program Files (x86)/Unity/Editor/Data/Mono\lib/mono/unity\System.Xml.Linq.dll"
