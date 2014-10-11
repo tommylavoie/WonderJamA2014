@@ -10,7 +10,6 @@ public class PowerUp : Entity {
 
 	public PowerUp()
 	{
-
 		type = Random.Range(0, 3);
 	}
 
@@ -62,6 +61,9 @@ public class PowerUp : Entity {
 
         lePersonnage.attaque += attackBonus;
         lePersonnage.speed += movSupplementaire;
+
+        Tile laTuile = getTile();
+        laTuile.removeEntity(this);
     }
 
 	public static int HEAL = 0;
