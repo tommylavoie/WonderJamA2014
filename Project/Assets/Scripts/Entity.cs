@@ -48,5 +48,11 @@ public class Entity : MonoBehaviour
 	{
 		return TileManager.getInstance().getTile(x, y);
 	}
+
+    public void setName(string leName)
+    {
+        this.name = leName;
+    }
 }
+
 

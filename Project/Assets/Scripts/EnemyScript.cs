@@ -3,10 +3,8 @@ using System.Collections;
 
 public class EnemyScript : Personnage {
 
-    int vie;
-    int force;
-    int déplacement;
-    int type; 
+    int enemyType; 
+    
     /* 0 = rapide mais faible (dep4, 
      * 1 = tank
      * 2 = Lent mais tres fort
@@ -16,14 +14,15 @@ public class EnemyScript : Personnage {
 	// Use this for initialization
 	void Start () {
         // Randomly choose the enemy type and set it stats
-        type = Random.Range(0, 2);
-        switch (type)
+        setName("Enemy");
+        enemyType = Random.Range(0, 2);
+        switch (enemyType)
         {
             // setStats(vie, Attack, speed)
             // ADD SPRITE FOR EVERYONE
-            case 0: base.setStats(3, 1, 4); break;
-            case 1: base.setStats(10, 1, 1); break;
-            case 2: base.setStats(5, 3, 1); break;
+            case 0: setStats(3, 1, 4); break;
+            case 1: setStats(10, 1, 1); break;
+            case 2: setStats(5, 3, 1); break;
         }
 	}
 	
@@ -34,10 +33,10 @@ public class EnemyScript : Personnage {
 	}
 
     // Function permettant le déplacement d'un ennemie
-    void Action() {
-        if (!isThereNearbyPlayer()) { // Attack if true, move if false
-            int direction = Random.Range(0, 4);
-            switch (direction)
+    public void Action() {
+        ZombieController player = isThereNearbyPlayer();
+        if (player == null) { // Attack if true, move if false
+            switch (Random.Range(0, 4))
             {
                 case 0: base.MoveRight(); break;
                 case 1: base.MoveBackward(); break;
@@ -47,12 +46,33 @@ public class EnemyScript : Personnage {
         }
         else // ATTACK THE PLAYER
         {
-            //base.Attack();
+            base.Attack(player);
         }
     }
 
-    bool isThereNearbyPlayer() {
-        return false; // Temporaire
+    ZombieController isThereNearbyPlayer() {
+        foreach (Entity e in TileManager.getInstance().getTile(getX() + 1, getY()).getEntities())
+            if (e.name == "Player") 
+            {
+                return (ZombieController)e;
+            }
+        foreach (Entity e in TileManager.getInstance().getTile(getX() - 1, getY()).getEntities())
+            if (e.name == "Player")
+            {
+                return (ZombieController)e;
+            }
+        foreach (Entity e in TileManager.getInstance().getTile(getX(), getY() + 1).getEntities())
+            if (e.name == "Player")
+            {
+                return (ZombieController)e;
+            }
+        foreach (Entity e in TileManager.getInstance().getTile(getX(), getY() - 1).getEntities())
+            if (e.name == "Player")
+            {
+                return (ZombieController)e;
+            }
+        
+        return null;
     }
 
 

@@ -6,8 +6,10 @@ public class ZombieController : Personnage {
     public bool actif;
 
 	// Use this for initialization
-	void Start () 
-    {
+	void Start () {
+        // setStats(vie, Attack, speed)
+        setStats(10, 2, 4);
+        setName("Player");
 	}
 	
 	// Update is called once per frame
