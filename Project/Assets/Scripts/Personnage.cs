@@ -127,17 +127,16 @@ public class Personnage : Entity {
 
     public void decreaseSpeed(int speedReduced = 1)
     {
-		Debug.Log ("Speed:" + speed);
         if (speed > 0)
         {
-
             speed -= speedReduced;
+
+            if(speed == 0)
+            {
+                Debug.Log("Changing");
+                TurnManager.getInstance().changeActivePlayer();
+                EnemyManager.getInstance().updateEnemies();
+            }
         }
     }
-
-	public void changeActiveZombie()
-	{
-		TurnManager.getInstance().changeActivePlayer();
-		EnemyManager.getInstance().updateEnemies();
-	}
 }
