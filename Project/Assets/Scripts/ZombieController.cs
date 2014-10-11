@@ -20,147 +20,80 @@ public class ZombieController : Personnage {
         {
             base.Update();
             cameraFollow();
-            if (Input.GetKeyDown(KeyCode.RightArrow))
-            {
-                EnemyScript isEnemy = null;
-                PowerUp isPowerUp = null;
-                foreach (Entity e in TileManager.getInstance().getTile(getX() + 1, getY()).getEntities())
-                {
-					if (e.getIdentity() == "Enemy")
-					{
-                        isEnemy = (EnemyScript)e;
-                    }
-					if (e.getIdentity() == "PowerUp")
-                    {
-                        isPowerUp = (PowerUp)e;
-                    }
-					if (e.getIdentity() == "Player")
-					{
-                        // ADD #WINTHEGAMEFUNCTION
-                    }
-                }
-                if (isEnemy != null)
-                {
-                    Attack(isEnemy);
-                }
-                else
-                {
-                    MoveRight();
-                    if (isPowerUp != null)
-                    {
-                        isPowerUp.takePowerUp(this);
-                    }
-                }
-            }
-
             if (vie <= 0)
             {
                 // #LOSETHEGAME
             }
 
+            if (Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                if (checkNearby(1, 0))
+                {
+                    MoveRight();
+                }
+            }
+
             if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
-                EnemyScript isEnemy = null;
-                PowerUp isPowerUp = null;
-                foreach (Entity e in TileManager.getInstance().getTile(getX() - 1, getY()).getEntities())
-                {
-					if (e.getIdentity() == "Enemy")
-					{
-                        isEnemy = (EnemyScript)e;
-                    }
-					if (e.getIdentity() == "PowerUp")
-                    {
-                        isPowerUp = (PowerUp)e;
-                    }
-					if (e.getIdentity() == "Player")
-					{
-                        // ADD #WINTHEGAMEFUNCTION
-                    }
-                }
-                if (isEnemy != null)
-                {
-                    Attack(isEnemy);
-                }
-                else
+                if (checkNearby(-1, 0))
                 {
                     MoveLeft();
-                    if (isPowerUp != null)
-                    {
-                        isPowerUp.takePowerUp(this);
-                    }
                 }
-                
             }
 
             if (Input.GetKeyDown(KeyCode.UpArrow))
             {
-                EnemyScript isEnemy = null;
-                PowerUp isPowerUp = null;
-                foreach (Entity e in TileManager.getInstance().getTile(getX(), getY() + 1).getEntities())
-                {
-					if (e.getIdentity() == "Enemy")
-					{
-                        isEnemy = (EnemyScript)e;
-                    }
-					if (e.getIdentity() == "PowerUp")
-                    {
-                        isPowerUp = (PowerUp)e;
-                    }
-					if (e.getIdentity() == "Player")
-					{
-                        // ADD #WINTHEGAMEFUNCTION
-                    }
-                }
-                if (isEnemy != null)
-                {
-                    Attack(isEnemy);
-                }
-                else
+                if (checkNearby(0, 1))
                 {
                     MoveForward();
-                    if (isPowerUp != null)
-                    {
-                        isPowerUp.takePowerUp(this);
-                    }
                 }
-                
             }
 
             if (Input.GetKeyDown(KeyCode.DownArrow))
             {
-                EnemyScript isEnemy = null;
-                PowerUp isPowerUp = null;
-                foreach (Entity e in TileManager.getInstance().getTile(getX(), getY() - 1).getEntities())
-                {
-					if (e.getIdentity() == "Enemy")
-					{
-                        isEnemy = (EnemyScript)e;
-                    }
-					if (e.getIdentity() == "PowerUp")
-                    {
-                        isPowerUp = (PowerUp)e;
-                    }
-					if (e.getIdentity() == "Player")
-					{
-                        // ADD #WINTHEGAMEFUNCTION
-                    }
-                }
-                if (isEnemy != null)
-                {
-                    Attack(isEnemy);
-                }
-                else
+                if (checkNearby(0, -1))
                 {
                     MoveBackward();
-                    if (isPowerUp != null)
-                    {
-                        isPowerUp.takePowerUp(this);
-                    }
                 }
-                
             }
         }
 	}
+
+    bool checkNearby(int x, int y)
+    {
+        EnemyScript isEnemy = null;
+        PowerUp isPowerUp = null;
+        foreach (Entity e in TileManager.getInstance().getTile(getX() + x, getY() + y).getEntities())
+        {
+            if (e.getIdentity() == "Enemy")
+            {
+                Debug.Log("allo");
+                isEnemy = (EnemyScript)e;
+            }
+            if (e.getIdentity() == "PowerUp")
+            {
+                isPowerUp = (PowerUp)e;
+            }
+            if (e.getIdentity() == "Player")
+            {
+                // ADD #WINTHEGAMEFUNCTION
+            }
+        }
+        if (isEnemy != null)
+        {
+            Attack(isEnemy);
+            return false;
+        }
+        else
+        {
+            
+            if (isPowerUp != null)
+            {
+                isPowerUp.takePowerUp(this);
+            }
+            return true;
+        }
+    }
 
     public void changeActive()
     {
