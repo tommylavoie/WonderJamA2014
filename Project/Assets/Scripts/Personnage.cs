@@ -31,16 +31,19 @@ public class Personnage : Entity {
     {
         if (speed > 0)
         {
-            setPosition(getX() + 1, getY());
-            movementUnit = movingScale;
-            movementX = 1;
-            movementY = 0;
-            if (TileManager.getInstance().getTile(getX() + 1, getY()).getType() == Tile.MUD)
-                decreaseSpeed(2);
-            else
-                decreaseSpeed();
-            if (TileManager.getInstance().getTile(getX() + 1, getY()).getType() == Tile.SPIKE)
-                vie -= 3;
+            if (TileManager.getInstance().getTile(getX() + 1, getY()).getType() != Tile.MOUNTAIN)
+            {
+                setPosition(getX() + 1, getY());
+                movementUnit = movingScale;
+                movementX = 1;
+                movementY = 0;
+                if (TileManager.getInstance().getTile(getX(), getY()).getType() == Tile.MUD)
+                    decreaseSpeed(2);
+                else
+                    decreaseSpeed();
+                if (TileManager.getInstance().getTile(getX(), getY()).getType() == Tile.SPIKE)
+                    vie -= 3;
+            }
         }
     }
 
@@ -48,16 +51,19 @@ public class Personnage : Entity {
     {
         if(speed > 0)
 		{
-            setPosition(getX() - 1, getY());
-            movementUnit = movingScale;
-            movementX = -1;
-            movementY = 0;
-            if (TileManager.getInstance().getTile(getX() - 1, getY()).getType() == Tile.MUD)
-                decreaseSpeed(2);
-            else
-                decreaseSpeed();
-            if (TileManager.getInstance().getTile(getX() - 1, getY()).getType() == Tile.SPIKE)
-                vie -= 3;
+            if (TileManager.getInstance().getTile(getX() - 1, getY()).getType() != Tile.MOUNTAIN)
+            {
+                setPosition(getX() - 1, getY());
+                movementUnit = movingScale;
+                movementX = -1;
+                movementY = 0;
+                if (TileManager.getInstance().getTile(getX(), getY()).getType() == Tile.MUD)
+                    decreaseSpeed(2);
+                else
+                    decreaseSpeed();
+                if (TileManager.getInstance().getTile(getX(), getY()).getType() == Tile.SPIKE)
+                    vie -= 3;
+            }
         }
     }
 
@@ -65,16 +71,19 @@ public class Personnage : Entity {
     {
         if(speed > 0)
         {
-            setPosition(getX(), getY() + 1);
-            movementUnit = movingScale;
-            movementX = 0;
-            movementY = 1;
-            if (TileManager.getInstance().getTile(getX(), getY() + 1).getType() == Tile.MUD)
-                decreaseSpeed(2);
-            else
-                decreaseSpeed();
-            if (TileManager.getInstance().getTile(getX(), getY() + 1).getType() == Tile.SPIKE)
-                vie -= 3;
+            if (TileManager.getInstance().getTile(getX(), getY() + 1).getType() != Tile.MOUNTAIN)
+            {
+                setPosition(getX(), getY() + 1);
+                movementUnit = movingScale;
+                movementX = 0;
+                movementY = 1;
+                if (TileManager.getInstance().getTile(getX(), getY()).getType() == Tile.MUD)
+                    decreaseSpeed(2);
+                else
+                    decreaseSpeed();
+                if (TileManager.getInstance().getTile(getX(), getY()).getType() == Tile.SPIKE)
+                    vie -= 3;
+            }
         }
     }
 
@@ -82,16 +91,19 @@ public class Personnage : Entity {
     {
         if (speed > 0)
         {
-            setPosition(getX(), getY() - 1);
-            movementUnit = movingScale;
-            movementX = 0;
-            movementY = -1;
-            if (TileManager.getInstance().getTile(getX(), getY() - 1).getType() == Tile.MUD)
-                decreaseSpeed(2);
-            else
-                decreaseSpeed();
-            if (TileManager.getInstance().getTile(getX(), getY() - 1).getType() == Tile.SPIKE)
-                vie -= 3;
+            if (TileManager.getInstance().getTile(getX(), getY() - 1).getType() != Tile.MOUNTAIN)
+            {
+                setPosition(getX(), getY() - 1);
+                movementUnit = movingScale;
+                movementX = 0;
+                movementY = -1;
+                if (TileManager.getInstance().getTile(getX(), getY()).getType() == Tile.MUD)
+                    decreaseSpeed(2);
+                else
+                    decreaseSpeed();
+                if (TileManager.getInstance().getTile(getX(), getY()).getType() == Tile.SPIKE)
+                    vie -= 3;
+            }
         }
     }
 
@@ -119,13 +131,10 @@ public class Personnage : Entity {
         {
             speed -= speedReduced;
         }
-        else if(name == "Player")
+        else if (base.getIdentity() == "Player")
         {
             TurnManager.getInstance().changeActivePlayer();
+            EnemyManager.getInstance().updateEnemies();
         }
-    }
-
-    public void afficherStats()
-    {
     }
 }
