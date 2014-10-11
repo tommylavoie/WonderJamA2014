@@ -18,7 +18,13 @@ public class MapGenerator : MonoBehaviour
 
 	public GameObject ZombieMale;
 	public GameObject ZombieFemale;
-	public GameObject enemy1;
+	public GameObject elephant;
+	public GameObject ghost;
+	public GameObject fish;
+
+	public GameObject healUp;
+	public GameObject attackUp;
+	public GameObject speedUp;
 
 	// Use this for initialization
 	void Start () 
@@ -145,7 +151,6 @@ public class MapGenerator : MonoBehaviour
 			int type = tileManager.getTile(x,y).getType();
 			if(type == Tile.GROUND)
 			{
-				Debug.Log(x + ":" + y);
 				ZombieMale.transform.position = new Vector3(initialY+(10*x),initialX+(10*y), 0);
 				Instantiate(ZombieMale);
 				onGround = true;
@@ -161,7 +166,6 @@ public class MapGenerator : MonoBehaviour
 			int type = tileManager.getTile(x,y).getType();
 			if(type == Tile.GROUND)
 			{
-				Debug.Log(x + ":" + y);
 				ZombieFemale.transform.position = new Vector3(initialY+(10*x),initialX+(10*y), 0);
 				Instantiate(ZombieFemale);
 				onGround = true;
@@ -195,9 +199,24 @@ public class MapGenerator : MonoBehaviour
 			
 			if(tileManager.getTile(x,y).getType() == Tile.GROUND && !isCharacterOnTile(x,y))
 			{
-				enemyManager.lesEnemies.Add (new EnemyScript());
-				enemy1.transform.position = new Vector3(initialY+(10*x),initialX+(10*y), 0);
-				Instantiate(enemy1);
+				EnemyScript enemy = new EnemyScript();
+				enemyManager.lesEnemies.Add (enemy);
+				int type = enemy.getEnemyType();
+				if(type == EnemyScript.GHOST)
+				{
+					ghost.transform.position = new Vector3(initialY+(10*x),initialX+(10*y), 0);
+					Instantiate(ghost);
+				}
+				if(type == EnemyScript.ELEPHANT)
+				{
+					elephant.transform.position = new Vector3(initialY+(10*x),initialX+(10*y), 0);
+					Instantiate(elephant);
+				}
+				if(type == EnemyScript.FISH)
+				{
+					fish.transform.position = new Vector3(initialY+(10*x),initialX+(10*y), 0);
+					Instantiate(fish);
+				}
 				cpt++;
 			}
 		}
@@ -205,6 +224,9 @@ public class MapGenerator : MonoBehaviour
 
 	void generatePowerUps()
 	{
+		float initialX = transform.position.x-95;
+		float initialY = transform.position.y-95;
+
 		int powerUps = Random.Range(5,8);
 
 		int cpt = 0;
@@ -215,7 +237,23 @@ public class MapGenerator : MonoBehaviour
 			
 			if(tileManager.getTile(x,y).getType() != Tile.MOUNTAIN)
 			{
-				enemyManager.lesEnemies.Add (new EnemyScript());
+				PowerUp powerUp = new PowerUp();
+				int type = powerUp.getType();
+				if(type == PowerUp.HEAL)
+				{
+					healUp.transform.position = new Vector3(initialY+(10*x),initialX+(10*y), 0);
+					Instantiate(healUp);
+				}
+				if(type == PowerUp.ATTACK)
+				{
+					attackUp.transform.position = new Vector3(initialY+(10*x),initialX+(10*y), 0);
+					Instantiate(attackUp);
+				}
+				if(type == PowerUp.SPEED)
+				{
+					speedUp.transform.position = new Vector3(initialY+(10*x),initialX+(10*y), 0);
+					Instantiate(speedUp);
+				}
 				cpt++;
 			}
 		}
