@@ -24,6 +24,10 @@ public class Personnage : Entity {
         {
             transform.Translate(new Vector3(movementX, movementY, 0));
             movementUnit--;
+            if (speed <= 0 && getIdentity() == "Player" && movementUnit == 0)
+            {
+                movementSynchronisation();
+            }
         }
 	}
 
@@ -115,6 +119,10 @@ public class Personnage : Entity {
     {
         Enemy.Defend(attaque);
         decreaseSpeed(1);
+        if (speed <= 0 && getIdentity() == "Player")
+        {
+            movementSynchronisation();
+        }
     }
 
     public void Defend(int enemyForce)
@@ -135,11 +143,17 @@ public class Personnage : Entity {
         {
             speed -= speedReduced;
 
-            if(speed == 0 && getIdentity() == "Player")
+            if(speed < 0)
             {
-                TurnManager.getInstance().changeActivePlayer();
-                EnemyManager.getInstance().updateEnemies();
+                speed = 0; //Pour l'affichage
             }
         }
+    }
+
+    public void movementSynchronisation()
+    {
+        System.Threading.Thread.Sleep(300);
+        TurnManager.getInstance().changeActivePlayer();
+        EnemyManager.getInstance().updateEnemies();
     }
 }
