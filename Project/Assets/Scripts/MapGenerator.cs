@@ -1,6 +1,7 @@
 ﻿
 using UnityEngine;
 using System.Collections;
+using System.Linq;
 
 public class MapGenerator : MonoBehaviour 
 {
@@ -8,35 +9,28 @@ public class MapGenerator : MonoBehaviour
 	public static int height = 20;
 
 	TileManager tileManager;
+	EnemyManager enemyManager;
+
 	public GameObject groundTile;
 	public GameObject mountainTile;
 	public GameObject mudTile;
 	public GameObject spikeTile;
 
+	public GameObject enemy1;
+
 	// Use this for initialization
 	void Start () 
     {
 		tileManager = TileManager.getInstance();
-		generate();
+		enemyManager = EnemyManager.getInstance();
+		generateTiles();
+
+		generateZombies();
+		generateEnnemis();
+		generatePowerUps();
 	}
 
-	void generateTile()
-	{
-		/*float initialX = transform.position.x-95;
-		float initialY = transform.position.y-95;
-		for(int i=0;i<width;i++)
-		{
-			for(int j=0;j<height;j++)
-			{
-				Tile tile = new Tile(Tile.MOUNTAIN);
-				tileManager.changeTile(i,j,tile);
-				Instantiate(groundTile);
-				groundTile.transform.position = new Vector3(initialX+(10*j),initialY+(10*i), 0);
-			}
-		}*/
-	}
-
-	void generate()
+	void generateTiles()
 	{
 		float initialX = transform.position.x-95;
 		float initialY = transform.position.y-95;
@@ -69,29 +63,32 @@ public class MapGenerator : MonoBehaviour
 			Instantiate(mountainTile);
 			mountainTile.transform.position = new Vector3(initialX+(190),initialY+(i*10), 0);
 		}
+
+		//Reste des tiles
 		for(int i=1;i<width-1;i++)
 		{
 			for(int j=1;j<height-1;j++)
 			{
-				Tile tile = new Tile(Tile.MOUNTAIN);
-				tileManager.changeTile(i,j,tile);
-				Instantiate(groundTile);
-				groundTile.transform.position = new Vector3(initialX+(10*j),initialY+(10*i), 0);
+				int type = tileManager.getTile(i,j).getType();
+					Tile tile = new Tile(Tile.GROUND);
+					tileManager.changeTile(i,j,tile);
+					Instantiate(groundTile);
+					groundTile.transform.position = new Vector3(initialX+(10*j),initialY+(10*i), 0);
 			}
 		}
 
 		int cpt = 0;
 		while(cpt != mountains)
 		{
-			int x = Random.Range(1,18);
-			int y = Random.Range(1,18);
+			int x = Random.Range(1,19);
+			int y = Random.Range(1,19);
 
-			if(tileManager.getTile(x,y).getType() != Tile.EMPTY)
+			if(tileManager.getTile(x,y).getType() == Tile.GROUND)
 			{
 				Tile tile = new Tile(Tile.MOUNTAIN);
 				tileManager.changeTile(x,y,tile);
 				Instantiate(mountainTile);
-				mountainTile.transform.position = new Vector3(initialX+(10*x),initialY+(10*y), 0);
+				mountainTile.transform.position = new Vector3(initialX+(10*y),initialY+(10*x), 0);
 				cpt++;
 			}
 		}
@@ -99,15 +96,15 @@ public class MapGenerator : MonoBehaviour
 		cpt = 0;
 		while(cpt != mud)
 		{
-			int x = Random.Range(1,18);
-			int y = Random.Range(1,18);
+			int x = Random.Range(1,19);
+			int y = Random.Range(1,19);
 			
-			if(tileManager.getTile(x,y).getType() != Tile.EMPTY)
+			if(tileManager.getTile(x,y).getType() == Tile.GROUND)
 			{
 				Tile tile = new Tile(Tile.MUD);
 				tileManager.changeTile(x,y,tile);
 				Instantiate(mudTile);
-				mudTile.transform.position = new Vector3(initialX+(10*x),initialY+(10*y), 0);
+				mudTile.transform.position = new Vector3(initialX+(10*y),initialY+(10*x), 0);
 				cpt++;
 			}
 		}
@@ -115,15 +112,96 @@ public class MapGenerator : MonoBehaviour
 		cpt = 0;
 		while(cpt != spikes)
 		{
-			int x = Random.Range(1,18);
-			int y = Random.Range(1,18);
+			int x = Random.Range(1,19);
+			int y = Random.Range(1,19);
 			
-			if(tileManager.getTile(x,y).getType() != Tile.EMPTY)
+			if(tileManager.getTile(x,y).getType() == Tile.GROUND)
 			{
 				Tile tile = new Tile(Tile.SPIKE);
 				tileManager.changeTile(x,y,tile);
 				Instantiate(spikeTile);
-				spikeTile.transform.position = new Vector3(initialX+(10*x),initialY+(10*y), 0);
+				spikeTile.transform.position = new Vector3(initialX+(10*y),initialY+(10*x), 0);
+				cpt++;
+			}
+		}
+	}
+
+	void generateZombies()
+	{
+		bool onGround = false;
+		while(!onGround)
+		{
+			int x = Random.Range(1,3);
+			int y = Random.Range(1,19);
+			
+			int type = tileManager.getTile(x,y).getType();
+			if(type == Tile.GROUND)
+			{
+				onGround = true;
+			}
+		}
+		
+		onGround = false;
+		while(!onGround)
+		{
+			int x = Random.Range(16,19);
+			int y = Random.Range(1,19);
+			
+			int type = tileManager.getTile(x,y).getType();
+			if(type == Tile.GROUND)
+			{
+				onGround = true;
+			}
+		}
+	}
+
+	bool isCharacterOnTile(int x, int y)
+	{
+		var query =
+			from c in tileManager.getTile(x,y).getEntities()
+			where c.name == "Player" || c.name == "Enemy"
+				select c;
+		if(query.Count() != 0)
+			return true;
+		else
+			return false;
+	}
+	
+	void generateEnnemis()
+	{
+		float initialX = transform.position.x-95;
+		float initialY = transform.position.y-95;
+		int ennemies = Random.Range(5,8);
+
+		int cpt = 0;
+		while(cpt != ennemies)
+		{
+			int x = Random.Range(1,19);
+			int y = Random.Range(1,19);
+			
+			if(tileManager.getTile(x,y).getType() == Tile.GROUND && !isCharacterOnTile(x,y))
+			{
+				enemyManager.lesEnemies.Add (new EnemyScript());
+				Instantiate(enemy1);
+				enemy1.transform.position = new Vector3(initialX+(10*x),initialY+(10*y), 0);
+				cpt++;
+			}
+		}
+	}
+
+	void generatePowerUps()
+	{
+		int powerUps = Random.Range(5,8);
+
+		int cpt = 0;
+		while(cpt != powerUps)
+		{
+			int x = Random.Range(1,19);
+			int y = Random.Range(1,19);
+			
+			if(tileManager.getTile(x,y).getType() != Tile.MOUNTAIN)
+			{
+				enemyManager.lesEnemies.Add (new EnemyScript());
 				cpt++;
 			}
 		}
