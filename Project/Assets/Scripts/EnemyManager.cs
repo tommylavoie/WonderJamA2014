@@ -26,7 +26,7 @@ public class EnemyManager{
     {
         foreach(EnemyScript enemy in lesEnemies)
         {
-            
+            enemy.Action();
         }
     }
 }
