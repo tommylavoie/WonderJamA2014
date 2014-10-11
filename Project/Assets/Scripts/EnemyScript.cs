@@ -52,6 +52,9 @@ public class EnemyScript : Personnage {
     }
 
     bool isThereNearbyPlayer() {
+        foreach (Entity e in TileManager.getInstance().getTile(base.getX()+1, base.getY()).getEntities())
+            //if (e.type)
+        
         return false; // Temporaire
     }
 

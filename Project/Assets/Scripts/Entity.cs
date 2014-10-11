@@ -14,6 +14,7 @@ public class Entity : MonoBehaviour
 {
 	int x;
 	int y;
+    
 
 	public Entity ()
 	{
