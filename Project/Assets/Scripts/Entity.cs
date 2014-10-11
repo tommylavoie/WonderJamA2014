@@ -19,10 +19,12 @@ public class Entity : MonoBehaviour
 	{
 		x = 0;
 		y = 0;
+        TileManager.getInstance().addEntityToTile(x, y, this);
 	}
 
 	public void setPosition(int x, int y)
 	{
+        TileManager.getInstance().changeEntityPosition(this.x, this.y, x, y, this);
 		this.x = x;
 		this.y = y;
 	}
