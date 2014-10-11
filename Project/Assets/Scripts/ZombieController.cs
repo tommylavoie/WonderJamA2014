@@ -180,7 +180,10 @@ public class ZombieController : Personnage {
 
     void OnGUI() 
     {
-        GUI.Label(new Rect(Screen.width * 0.02f, Screen.height * 0.02f, Screen.width * 0.5f, Screen.height * 0.1f), "Actions Restantes: "+speed+
-            ", Vie: "+vie+"/"+vieMaximale+", Attaque: "+attaque);
+        if (actif)
+        {
+            GUI.Label(new Rect(Screen.width * 0.02f, Screen.height * 0.02f, Screen.width * 0.5f, Screen.height * 0.1f), "Actions Restantes: " + speed +
+                ", Vie: " + vie + "/" + vieMaximale + ", Attaque: " + attaque);
+        }
     }
 }
