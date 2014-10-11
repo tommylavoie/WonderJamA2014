@@ -47,7 +47,7 @@ public class Personnage : Entity {
     public void MoveLeft()
     {
         if(speed > 0)
-        {
+		{
             setPosition(getX() - 1, getY());
             movementUnit = movingScale;
             movementX = -1;
