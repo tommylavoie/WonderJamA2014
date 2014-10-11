@@ -14,9 +14,11 @@ public class Entity : MonoBehaviour
 {
 	int x;
 	int y;
+    string name;
 
 	public Entity ()
 	{
+        name = "";
 		x = 0;
 		y = 0;
         TileManager.getInstance().addEntityToTile(x, y, this);
@@ -24,9 +26,12 @@ public class Entity : MonoBehaviour
 
 	public void setPosition(int x, int y)
 	{
-        TileManager.getInstance().changeEntityPosition(this.x, this.y, x, y, this);
-		this.x = x;
-		this.y = y;
+        if (x >= 0 && y >= 0)
+        {
+            TileManager.getInstance().changeEntityPosition(this.x, this.y, x, y, this);
+            this.x = x;
+            this.y = y;
+        }
 	}
 
 	public int getX()

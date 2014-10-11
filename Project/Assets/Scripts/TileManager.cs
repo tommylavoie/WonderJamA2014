@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UnityEngine;
 
 class TileManager
 {
@@ -24,6 +25,10 @@ class TileManager
 		for(int i=0;i<20;i++)
 		{
 			tiles[i] = new Tile[20];
+            for (int j = 0; j < 20; j++)
+            {
+                tiles[i][j] = new Tile();
+            }
 		}
 	}
 
