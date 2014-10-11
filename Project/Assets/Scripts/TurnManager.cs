@@ -27,5 +27,6 @@ public class TurnManager {
     {
 		zombieMale.changeActive();
 		zombieFemale.changeActive();
-    }
+		EnemyManager.getInstance().updateEnemies();
+	}
 }

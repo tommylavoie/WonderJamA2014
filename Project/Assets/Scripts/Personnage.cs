@@ -134,7 +134,6 @@ public class Personnage : Entity {
             if(speed == 0 && getIdentity() == "Player")
             {
                 TurnManager.getInstance().changeActivePlayer();
-                EnemyManager.getInstance().updateEnemies();
             }
         }
     }

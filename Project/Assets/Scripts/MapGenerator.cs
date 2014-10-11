@@ -38,6 +38,8 @@ public class MapGenerator : MonoBehaviour
 		generateZombies();
 		generateEnnemis();
 		generatePowerUps();
+
+		generateFog();
 	}
 	
 	void generateTiles()
@@ -189,7 +191,7 @@ public class MapGenerator : MonoBehaviour
 	{
 		var query =
 			from c in tileManager.getTile(x,y).getEntities()
-				where c.name == "Player" || c.name == "Enemy"
+				where c.getIdentity() == "Player" || c.getIdentity() == "Enemy"
 				select c;
 		if(query.Count() != 0)
 			return true;
@@ -300,6 +302,11 @@ public class MapGenerator : MonoBehaviour
 				cpt++;
 			}
 		}
+	}
+
+	void generateFog()
+	{
+
 	}
 	
 	// Update is called once per frame
