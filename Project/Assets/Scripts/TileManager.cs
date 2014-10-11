@@ -21,10 +21,10 @@ class TileManager
 
 	private TileManager()
 	{
-		tiles = new Tile[20][];
+		tiles = new Tile[MapGenerator.width][];
 		for(int i=0;i<20;i++)
 		{
-			tiles[i] = new Tile[20];
+			tiles[i] = new Tile[MapGenerator.height];
             for (int j = 0; j < 20; j++)
             {
                 tiles[i][j] = new Tile();
