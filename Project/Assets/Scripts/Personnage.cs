@@ -40,7 +40,7 @@ public class Personnage : Entity {
                 if (TileManager.getInstance().getTile(getX(), getY()).getType() == Tile.MUD)
                     decreaseSpeed(2);
                 else
-                    decreaseSpeed();
+                    decreaseSpeed(1);
                 if (TileManager.getInstance().getTile(getX(), getY()).getType() == Tile.SPIKE)
                     vie -= 3;
             }
@@ -60,7 +60,7 @@ public class Personnage : Entity {
                 if (TileManager.getInstance().getTile(getX(), getY()).getType() == Tile.MUD)
                     decreaseSpeed(2);
                 else
-                    decreaseSpeed();
+                    decreaseSpeed(1);
                 if (TileManager.getInstance().getTile(getX(), getY()).getType() == Tile.SPIKE)
                     vie -= 3;
             }
@@ -80,7 +80,7 @@ public class Personnage : Entity {
                 if (TileManager.getInstance().getTile(getX(), getY()).getType() == Tile.MUD)
                     decreaseSpeed(2);
                 else
-                    decreaseSpeed();
+                    decreaseSpeed(1);
                 if (TileManager.getInstance().getTile(getX(), getY()).getType() == Tile.SPIKE)
                     vie -= 3;
             }
@@ -100,7 +100,7 @@ public class Personnage : Entity {
                 if (TileManager.getInstance().getTile(getX(), getY()).getType() == Tile.MUD)
                     decreaseSpeed(2);
                 else
-                    decreaseSpeed();
+                    decreaseSpeed(1);
                 if (TileManager.getInstance().getTile(getX(), getY()).getType() == Tile.SPIKE)
                     vie -= 3;
             }
@@ -110,7 +110,7 @@ public class Personnage : Entity {
     public void Attack(Personnage Enemy)
     {
         Enemy.Defend(attaque);
-        decreaseSpeed();
+        decreaseSpeed(1);
     }
 
     public void Defend(int enemyForce)
@@ -125,16 +125,17 @@ public class Personnage : Entity {
         speed = speedRecu;
     }
 
-    public void decreaseSpeed(int speedReduced = 1)
+    public void decreaseSpeed(int speedReduced)
     {
         if (speed > 0)
         {
             speed -= speedReduced;
-        }
-        else if (base.getIdentity() == "Player")
-        {
-            TurnManager.getInstance().changeActivePlayer();
-            EnemyManager.getInstance().updateEnemies();
+
+            if(speed == 0 && getIdentity() == "Player")
+            {
+                TurnManager.getInstance().changeActivePlayer();
+                EnemyManager.getInstance().updateEnemies();
+            }
         }
     }
 }

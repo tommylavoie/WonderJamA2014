@@ -10,23 +10,23 @@ public class EnemyScript : Personnage {
      * 2 = Lent mais tres fort
     */
 
-	public EnemyScript()
+	// Use this for initialization
+	void Start () 
 	{
 		setIdentity("Enemy");
-		enemyType = Random.Range(0, 3);
+	}
+
+	public void setEnemyType(int type)
+	{
+		this.enemyType = type;
 		switch (enemyType)
 		{
 			// setStats(vie, Attack, speed)
 			// ADD SPRITE FOR EVERYONE
-		case 0: setStats(3, 1, 4); break;
-		case 1: setStats(10, 1, 1); break;
-		case 2: setStats(5, 3, 1); break;
+			case 0: setStats(3, 1, 4); break;
+			case 1: setStats(10, 1, 1); break;
+			case 2: setStats(5, 3, 1); break;
 		}
-	}
-
-	// Use this for initialization
-	void Start () {
-
 	}
 
 	public int getEnemyType()

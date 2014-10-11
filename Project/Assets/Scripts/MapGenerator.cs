@@ -10,6 +10,7 @@ public class MapGenerator : MonoBehaviour
 	
 	TileManager tileManager;
 	EnemyManager enemyManager;
+	TurnManager turnManager;
 	
 	public GameObject groundTile;
 	public GameObject mountainTile;
@@ -31,6 +32,7 @@ public class MapGenerator : MonoBehaviour
 	{
 		tileManager = TileManager.getInstance();
 		enemyManager = EnemyManager.getInstance();
+		turnManager = TurnManager.getInstance();
 		generateTiles();
 		
 		generateZombies();
@@ -157,6 +159,7 @@ public class MapGenerator : MonoBehaviour
 				ZombieController control = (ZombieController)zomb.GetComponent<ZombieController>();
 				control.setPosition(x,y);
 				tileManager.addEntityToTile(x,y,control);
+				turnManager.zombieMale = control;
 				onGround = true;
 			}
 		}
@@ -176,6 +179,7 @@ public class MapGenerator : MonoBehaviour
 				ZombieController control = (ZombieController)zomb.GetComponent<ZombieController>();
 				control.setPosition(x,y);
 				tileManager.addEntityToTile(x,y,control);
+				turnManager.zombieFemale = control;
 				onGround = true;
 			}
 		}
@@ -207,23 +211,40 @@ public class MapGenerator : MonoBehaviour
 			
 			if(tileManager.getTile(x,y).getType() == Tile.GROUND && !isCharacterOnTile(x,y))
 			{
-				EnemyScript enemy = new EnemyScript();
-				enemyManager.lesEnemies.Add (enemy);
-				int type = enemy.getEnemyType();
+				int type = Random.Range(0, 3);
 				if(type == EnemyScript.GHOST)
 				{
 					ghost.transform.position = new Vector3(initialY+(10*x),initialX+(10*y), 0);
-					Instantiate(ghost);
+					Object enemyInstance = Instantiate(ghost);
+					GameObject enemy = (GameObject)enemyInstance;
+					EnemyScript control = (EnemyScript)enemy.GetComponent<EnemyScript>();
+					control.setPosition(x,y);
+					control.setEnemyType(type);
+					tileManager.addEntityToTile(x,y,control);
+					enemyManager.lesEnemies.Add (control);
+
 				}
 				if(type == EnemyScript.ELEPHANT)
 				{
 					elephant.transform.position = new Vector3(initialY+(10*x),initialX+(10*y), 0);
-					Instantiate(elephant);
+					Object enemyInstance = Instantiate(elephant);
+					GameObject enemy = (GameObject)enemyInstance;
+					EnemyScript control = (EnemyScript)enemy.GetComponent<EnemyScript>();
+					control.setPosition(x,y);
+					control.setEnemyType(type);
+					tileManager.addEntityToTile(x,y,control);
+					enemyManager.lesEnemies.Add (control);
 				}
 				if(type == EnemyScript.FISH)
 				{
 					fish.transform.position = new Vector3(initialY+(10*x),initialX+(10*y), 0);
-					Instantiate(fish);
+					Object enemyInstance = Instantiate(fish);
+					GameObject enemy = (GameObject)enemyInstance;
+					EnemyScript control = (EnemyScript)enemy.GetComponent<EnemyScript>();
+					control.setPosition(x,y);
+					control.setEnemyType(type);
+					tileManager.addEntityToTile(x,y,control);
+					enemyManager.lesEnemies.Add (control);
 				}
 				cpt++;
 			}
