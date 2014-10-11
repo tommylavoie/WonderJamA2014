@@ -4,17 +4,23 @@ using System.Collections;
 public class MainMenu : MonoBehaviour {
 
     public Texture background;
+    public string button1Text;
+    public string button2Text;
 
     void OnGUI()
     {
-        Rect rect = new Rect(Screen.width * 0.25f, Screen.height * 0.5f, Screen.width * 0.5f, Screen.height * 0.1f);
-        if(GUI.Button(rect, "Jouer"))
+        if(background)
+        {
+            GUI.DrawTexture(new Rect((Screen.width - background.width) / 2, (Screen.height - background.height) / 2, background.width, background.height), background);
+        }
+        Rect rect = new Rect(Screen.width * 0.35f, Screen.height * 0.5f, Screen.width * 0.3f, Screen.height * 0.1f);
+        if (GUI.Button(rect, button1Text))
         {
 
         }
 
-        Rect rect2 = new Rect(Screen.width * 0.25f, Screen.height * 0.65f, Screen.width * 0.5f, Screen.height * 0.1f);
-        if (GUI.Button(rect2, "Quitter"))
+        Rect rect2 = new Rect(Screen.width * 0.35f, Screen.height * 0.65f, Screen.width * 0.3f, Screen.height * 0.1f);
+        if (GUI.Button(rect2, button2Text))
         {
             Application.Quit();
         }
