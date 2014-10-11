@@ -7,7 +7,7 @@ public class Personnage : Entity {
     public int vieMaximale;
     public int attaque;
     public int speed = 1;
-    public int movingScale = 2;
+    public int movingScale = 10;
     int movementUnit;
     int movementX;
     int movementY;
