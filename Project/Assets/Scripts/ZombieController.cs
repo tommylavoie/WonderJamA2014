@@ -11,6 +11,7 @@ public class ZombieController : Personnage {
 	// Update is called once per frame
 	void Update () 
     {
+        base.Update();
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             base.MoveRight();

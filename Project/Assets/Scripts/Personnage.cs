@@ -4,6 +4,7 @@ using System.Collections;
 public class Personnage : Entity {
 
     public int vie;
+    public int vieMaximale;
     public int attaque;
     public int speed = 1;
     public int movingScale = 2;
@@ -17,7 +18,7 @@ public class Personnage : Entity {
 	}
 	
 	// Update is called once per frame  
-	void Update () 
+	public void Update () 
     {
         if (movementUnit > 0)
         {
@@ -28,38 +29,50 @@ public class Personnage : Entity {
 
     public void MoveRight()
     {
-        base.setPosition(base.getX() + 1, base.getY());
-        movementUnit = 50;
-        movementX = 1;
-        movementY = 0;
-        //transform.Translate(new Vector3(movingScale, 0, 0));
+        if (speed > 0)
+        {
+            base.setPosition(base.getX() + 1, base.getY());
+            movementUnit = movingScale;
+            movementX = 1;
+            movementY = 0;
+            decreaseSpeed();
+        }
     }
 
     public void MoveLeft()
     {
-        base.setPosition(base.getX() - 1, base.getY());
-        movementUnit = 50;
-        movementX = -1;
-        movementY = 0;
-        //transform.Translate(new Vector3(-movingScale, 0, 0));
+        if(speed > 0)
+        {
+            base.setPosition(base.getX() - 1, base.getY());
+            movementUnit = movingScale;
+            movementX = -1;
+            movementY = 0;
+            decreaseSpeed();
+        }
     }
 
     public void MoveBackward()
     {
-        base.setPosition(base.getX(), base.getY() - 1);
-        movementUnit = 50;
-        movementX = 0;
-        movementY = -1;
-        //transform.Translate(new Vector3(0, -movingScale, 0));
+        if(speed > 0)
+        {
+            base.setPosition(base.getX(), base.getY() - 1);
+            movementUnit = movingScale;
+            movementX = 0;
+            movementY = -1;
+            decreaseSpeed();
+        }
     }
 
     public void MoveForward()
     {
-        base.setPosition(base.getX(), base.getY() + 1);
-        movementUnit = 50;
-        movementX = 0;
-        movementY = 1;
-        //transform.Translate(new Vector3(0, movingScale, 0));
+        if(speed > 0)
+        {
+            base.setPosition(base.getX(), base.getY() + 1);
+            movementUnit = movingScale;
+            movementX = 0;
+            movementY = 1;
+            decreaseSpeed();
+        }
     }
 
     public void Attack(Personnage Enemy)
@@ -77,5 +90,13 @@ public class Personnage : Entity {
         vie = vieRecu;
         attaque = attaqueRecu;
         speed = speedRecu;
+    }
+
+    public void decreaseSpeed()
+    {
+        if (speed > 0)
+        {
+            speed--;
+        }
     }
 }
