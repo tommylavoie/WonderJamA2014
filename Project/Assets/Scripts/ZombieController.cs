@@ -5,36 +5,37 @@ public class ZombieController : Personnage {
 
     public bool actif;
 
-
 	// Use this for initialization
 	void Start () {
         // setStats(vie, Attack, speed)
         setStats(10, 2, 4);
-        setName("Player");
+		setIdentity("Player");
 	}
 	
 	// Update is called once per frame
 	void Update () 
     {
+
         if (actif)
         {
             base.Update();
+            cameraFollow();
             if (Input.GetKeyDown(KeyCode.RightArrow))
             {
                 EnemyScript isEnemy = null;
                 PowerUp isPowerUp = null;
                 foreach (Entity e in TileManager.getInstance().getTile(getX() + 1, getY()).getEntities())
                 {
-                    if (e.name == "Enemy")
-                    {
+					if (e.getIdentity() == "Enemy")
+					{
                         isEnemy = (EnemyScript)e;
                     }
-                    if (e.name == "PowerUp")
+					if (e.getIdentity() == "PowerUp")
                     {
                         isPowerUp = (PowerUp)e;
                     }
-                    if (e.name == "Player")
-                    {
+					if (e.getIdentity() == "Player")
+					{
                         // ADD #WINTHEGAMEFUNCTION
                     }
                 }
@@ -63,16 +64,16 @@ public class ZombieController : Personnage {
                 PowerUp isPowerUp = null;
                 foreach (Entity e in TileManager.getInstance().getTile(getX() - 1, getY()).getEntities())
                 {
-                    if (e.name == "Enemy")
-                    {
+					if (e.getIdentity() == "Enemy")
+					{
                         isEnemy = (EnemyScript)e;
                     }
-                    if (e.name == "PowerUp")
+					if (e.getIdentity() == "PowerUp")
                     {
                         isPowerUp = (PowerUp)e;
                     }
-                    if (e.name == "Player")
-                    {
+					if (e.getIdentity() == "Player")
+					{
                         // ADD #WINTHEGAMEFUNCTION
                     }
                 }
@@ -97,16 +98,16 @@ public class ZombieController : Personnage {
                 PowerUp isPowerUp = null;
                 foreach (Entity e in TileManager.getInstance().getTile(getX(), getY() + 1).getEntities())
                 {
-                    if (e.name == "Enemy")
-                    {
+					if (e.getIdentity() == "Enemy")
+					{
                         isEnemy = (EnemyScript)e;
                     }
-                    if (e.name == "PowerUp")
+					if (e.getIdentity() == "PowerUp")
                     {
                         isPowerUp = (PowerUp)e;
                     }
-                    if (e.name == "Player")
-                    {
+					if (e.getIdentity() == "Player")
+					{
                         // ADD #WINTHEGAMEFUNCTION
                     }
                 }
@@ -131,16 +132,16 @@ public class ZombieController : Personnage {
                 PowerUp isPowerUp = null;
                 foreach (Entity e in TileManager.getInstance().getTile(getX(), getY() - 1).getEntities())
                 {
-                    if (e.name == "Enemy")
-                    {
+					if (e.getIdentity() == "Enemy")
+					{
                         isEnemy = (EnemyScript)e;
                     }
-                    if (e.name == "PowerUp")
+					if (e.getIdentity() == "PowerUp")
                     {
                         isPowerUp = (PowerUp)e;
                     }
-                    if (e.name == "Player")
-                    {
+					if (e.getIdentity() == "Player")
+					{
                         // ADD #WINTHEGAMEFUNCTION
                     }
                 }
@@ -169,5 +170,11 @@ public class ZombieController : Personnage {
         {
             speed = 4;
         }
+    }
+
+    void cameraFollow()
+    {
+        Vector3 cameraPosition = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y, 0);
+        Camera.main.transform.Translate(transform.position - cameraPosition);
     }
 }

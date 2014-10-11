@@ -10,20 +10,28 @@ public class EnemyScript : Personnage {
      * 2 = Lent mais tres fort
     */
 
+	public EnemyScript()
+	{
+		setIdentity("Enemy");
+		enemyType = Random.Range(0, 3);
+		switch (enemyType)
+		{
+			// setStats(vie, Attack, speed)
+			// ADD SPRITE FOR EVERYONE
+		case 0: setStats(3, 1, 4); break;
+		case 1: setStats(10, 1, 1); break;
+		case 2: setStats(5, 3, 1); break;
+		}
+	}
 
 	// Use this for initialization
 	void Start () {
-        // Randomly choose the enemy type and set it stats
-        setName("Enemy");
-        enemyType = Random.Range(0, 2);
-        switch (enemyType)
-        {
-            // setStats(vie, Attack, speed)
-            // ADD SPRITE FOR EVERYONE
-            case 0: setStats(3, 1, 4); break;
-            case 1: setStats(10, 1, 1); break;
-            case 2: setStats(5, 3, 1); break;
-        }
+
+	}
+
+	public int getEnemyType()
+	{
+		return enemyType;
 	}
 	
 	// Update is called once per frame
@@ -113,5 +121,7 @@ public class EnemyScript : Personnage {
         return null;
     }
 
-
+	public static int GHOST = 0;
+	public static int ELEPHANT = 1;
+	public static int FISH = 2;
 }
