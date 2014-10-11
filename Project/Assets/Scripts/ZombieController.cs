@@ -77,7 +77,7 @@ public class ZombieController : Personnage {
             {
                 isPowerUp = (PowerUp)e;
             }
-            if (e.getIdentity() == "Player")
+            if (e.getIdentity() == "Player" && e != this)
             {
                 // ADD #WINTHEGAMEFUNCTION
             }

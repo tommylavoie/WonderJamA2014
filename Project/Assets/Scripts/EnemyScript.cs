@@ -38,6 +38,11 @@ public class EnemyScript : Personnage {
 	void Update () 
 	{
 		base.Update();
+        if (vie <= 0)
+        {
+            Destroy(this);
+            Destroy(sprite);
+        }
 	}
 
     // Function 
@@ -103,22 +108,22 @@ public class EnemyScript : Personnage {
     // Check if there's a player in one of the four adjacent tile (will only one if the 2 player are adjacent to the enemy
     ZombieController isThereNearbyPlayer() {
         foreach (Entity e in TileManager.getInstance().getTile(getX() + 1, getY()).getEntities())
-            if (e.name == "Player") 
+            if (e.getIdentity() == "Player") 
             {
                 return (ZombieController)e;
             }
         foreach (Entity e in TileManager.getInstance().getTile(getX() - 1, getY()).getEntities())
-            if (e.name == "Player")
+            if (e.getIdentity() == "Player")
             {
                 return (ZombieController)e;
             }
         foreach (Entity e in TileManager.getInstance().getTile(getX(), getY() + 1).getEntities())
-            if (e.name == "Player")
+            if (e.getIdentity() == "Player")
             {
                 return (ZombieController)e;
             }
         foreach (Entity e in TileManager.getInstance().getTile(getX(), getY() - 1).getEntities())
-            if (e.name == "Player")
+            if (e.getIdentity() == "Player")
             {
                 return (ZombieController)e;
             }    
