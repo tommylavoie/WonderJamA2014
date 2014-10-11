@@ -131,13 +131,10 @@ public class Personnage : Entity {
         {
             speed -= speedReduced;
         }
-        else if(name == "Player")
+        else if (base.getIdentity() == "Player")
         {
             TurnManager.getInstance().changeActivePlayer();
+            EnemyManager.getInstance().updateEnemies();
         }
-    }
-
-    public void afficherStats()
-    {
     }
 }
