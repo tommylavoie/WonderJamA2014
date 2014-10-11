@@ -31,12 +31,11 @@ public class Personnage : Entity {
     {
         if (speed > 0)
         {
-
-            setPosition(getX() + 1, getY());
-            movementUnit = movingScale;
-            movementX = 1;
-            movementY = 0;
-            decreaseSpeed();
+                setPosition(getX() + 1, getY());
+                movementUnit = movingScale;
+                movementX = 1;
+                movementY = 0;
+                decreaseSpeed();
         }
     }
 

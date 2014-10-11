@@ -38,6 +38,12 @@ public class PowerUp : Entity {
     public void takePowerUp(Personnage lePersonnage)
     {
         lePersonnage.vie += heal;
+
+        if(lePersonnage.vieMaximale < lePersonnage.vie)
+        {
+            lePersonnage.vie = lePersonnage.vieMaximale;
+        }
+
         lePersonnage.attaque += attackBonus;
         lePersonnage.speed += movSupplementaire;
     }

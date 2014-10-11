@@ -27,7 +27,7 @@ class TileManager
 			tiles[i] = new Tile[MapGenerator.height];
             for (int j = 0; j < 20; j++)
             {
-                tiles[i][j] = new Tile();
+                tiles[i][j] = new Tile(Tile.EMPTY);
             }
 		}
 	}

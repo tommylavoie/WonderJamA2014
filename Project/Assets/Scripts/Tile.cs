@@ -10,12 +10,12 @@ public class Tile
     int type;
 
 	// Use this for initialization
-	void Start ()
+	public Tile (int type)
     {
 		entities = new List<Entity>();
         width = 1;
         height = 1;
-		type = 0;
+		this.type = type;
 	}
 
 	public void addEntity(Entity entity)
@@ -39,10 +39,21 @@ public class Tile
 	{
 		this.type = type;
 	}
+
+	public int getType()
+	{
+		return type;
+	}
 	
 	// Update is called once per frame
 	void FixedUpdate () 
     {
 	    
 	}
+
+	public static int EMPTY = -1;
+	public static int GROUND = 0;
+	public static int MOUNTAIN = 1;
+	public static int MUD = 2;
+	public static int SPIKE = 3;
 }
