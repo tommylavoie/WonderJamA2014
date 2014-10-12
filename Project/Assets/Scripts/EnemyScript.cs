@@ -7,8 +7,13 @@ public class EnemyScript : Personnage {
 	int attackCount;
 	bool canAttack;
 	int lastResort = 0;
+	bool endTurn = false;
 
 	public Animator anim;
+
+	public GameObject healUp;
+	public GameObject attackUp;
+	public GameObject speedUp;
     
     /* 0 = rapide mais faible (dep4, 
      * 1 = tank
@@ -49,7 +54,15 @@ public class EnemyScript : Personnage {
 		if(actif && canAttack)
 		{
 			DoAction();
-			if(speed > 0 && lastResort < 6 && vie >=0)
+			if(endTurn  && lastResort < 6 && vie >=0)
+			{
+				endTurn = false;
+				canAttack = false;
+				actif = false;
+				setSpeedBack();
+				TurnManager.getInstance().nextEnemy();				
+			}
+			if(speed > 0)
 			{
 				lastResort++;
 				canAttack = false;
@@ -59,14 +72,18 @@ public class EnemyScript : Personnage {
 			{
 				lastResort = 0;
 				canAttack = false;
-				actif = false;
-				setSpeedBack();
-				TurnManager.getInstance().nextEnemy();
+				endTurn = true;
+				StartCoroutine(waitEnemy());
+
 			}
 		}
 
         if (vie <= 0)
         {
+			int rand = Random.Range(1,3);
+			Debug.Log (rand);
+			if(rand == 2)
+				addPowerUp(getX(), getY ());
 			EnemyManager.getInstance().lesEnemies.Remove(this);
 			if(actif)
 				TurnManager.getInstance().nextEnemy();
@@ -152,7 +169,7 @@ public class EnemyScript : Personnage {
 		}
 		else // ATTACK THE PLAYER
 		{
-			attackCount = 5;
+			attackCount = 10;
 			Attack(player);
 			player = null;
 		}
@@ -188,6 +205,42 @@ public class EnemyScript : Personnage {
 	{
 		yield return new WaitForSeconds (0.3f);
 		canAttack = true;
+	}
+
+	void addPowerUp(int x, int y)
+	{
+		Debug.Log ("IN");
+		int type = Random.Range(0, 3);
+		if(type == PowerUp.HEAL)
+		{
+			healUp.transform.position = new Vector3(MapGenerator.initialY+(10*x),MapGenerator.initialX+(10*y), 0);
+			Object powerInstance = Instantiate(healUp);
+			GameObject power = (GameObject)powerInstance;
+			PowerUp control = (PowerUp)power.GetComponent<PowerUp>();
+			control.setPosition(x,y);
+			control.setType(type);
+			control.sprite = power;
+		}
+		if(type == PowerUp.ATTACK)
+		{
+			attackUp.transform.position = new Vector3(MapGenerator.initialY+(10*x),MapGenerator.initialX+(10*y), 0);
+			Object powerInstance = Instantiate(attackUp);
+			GameObject power = (GameObject)powerInstance;
+			PowerUp control = (PowerUp)power.GetComponent<PowerUp>();
+			control.setPosition(x,y);
+			control.setType(type);
+			control.sprite = power;
+		}
+		if(type == PowerUp.SPEED)
+		{
+			speedUp.transform.position = new Vector3(MapGenerator.initialY+(10*x),MapGenerator.initialX+(10*y), 0);
+			Object powerInstance = Instantiate(speedUp);
+			GameObject power = (GameObject)powerInstance;
+			PowerUp control = (PowerUp)power.GetComponent<PowerUp>();
+			control.setPosition(x,y);
+			control.setType(type);
+			control.sprite = power;
+		}
 	}
 	
 	public static int GHOST = 0;
