@@ -3,7 +3,8 @@ using System.Collections;
 
 public class EnemyScript : Personnage {
 
-    int enemyType; 
+    int enemyType;
+	int attackCount;
 
 	public Animator anim;
     
@@ -17,6 +18,7 @@ public class EnemyScript : Personnage {
 	{
 		setIdentity("Enemy");
 		anim = gameObject.GetComponent<Animator>();
+		attackCount = 0;
 	}
 
 	public void setEnemyType(int type)
@@ -42,11 +44,18 @@ public class EnemyScript : Personnage {
 		base.Update();
         if (vie <= 0)
         {
+			EnemyManager.getInstance().lesEnemies.Remove(this);
             Destroy(this);
             Destroy(sprite);
         }
 
 		anim.SetFloat("vitesse", movementUnit);
+		anim.SetInteger("attackCount", attackCount);
+
+		if(attackCount > 0)
+		{
+			attackCount--;
+		}
 	}
 
     // Function 
@@ -104,6 +113,7 @@ public class EnemyScript : Personnage {
 			}
 			else // ATTACK THE PLAYER
 			{
+				attackCount = 5;
 				Attack(player);
                 player = null;
 			}

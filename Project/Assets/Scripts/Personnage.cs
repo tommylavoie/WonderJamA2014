@@ -66,7 +66,7 @@ public class Personnage : Entity {
         }
     }
 
-    public void Defend(int enemyForce)
+    virtual public void Defend(int enemyForce)
     {
         vie -= enemyForce;
         if (getIdentity() == "Player")
@@ -127,11 +127,15 @@ public class Personnage : Entity {
 
     public void movementSynchronisation()
     {
+		wait();
+        TurnManager.getInstance().changeActivePlayer();
+    }
+
+	public void wait()
+	{
 		try
 		{
-        	System.Threading.Thread.Sleep(300);
+			System.Threading.Thread.Sleep(300);
 		}catch{}
-        TurnManager.getInstance().changeActivePlayer();
-        //EnemyManager.getInstance().updateEnemies();
-    }
+	}
 }

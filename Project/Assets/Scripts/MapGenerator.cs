@@ -5,8 +5,8 @@ using System.Linq;
 
 public class MapGenerator : MonoBehaviour 
 {
-	public static int width = 30;
-	public static int height = 30;
+	public static int width = 20;
+	public static int height = 20;
 	public static int initialX = 0;
 	public static int initialY = 0;
 	
@@ -43,7 +43,7 @@ public class MapGenerator : MonoBehaviour
 
 		adjustBackground();
 		generateTiles();
-		generateFog();
+		//generateFog();
 		
 		generateZombies();
 		generateEnnemis();
