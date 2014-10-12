@@ -145,7 +145,7 @@ public class Personnage : Entity {
     public void movementSynchronisation()
     {
 		wait();
-        TurnManager.getInstance().changeActivePlayer();
+		TurnManager.getInstance().changeActivePlayer();
     }
 
 	public void wait()
