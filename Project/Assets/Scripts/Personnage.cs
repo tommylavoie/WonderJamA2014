@@ -58,6 +58,14 @@ public class Personnage : Entity {
 
     public void Attack(Personnage Enemy)
     {
+        if (getIdentity() == "Player")
+        {
+            SoundScript.Instance.MakePlayerAttackSound();
+        }
+        else if (getIdentity() == "Enemy")
+        {
+            SoundScript.Instance.MakeenemyAttackSound();
+        }
         Enemy.Defend(attaque);
         decreaseSpeed(1);
         if (speed <= 0 && getIdentity() == "Player")
@@ -99,7 +107,13 @@ public class Personnage : Entity {
                 else
                     decreaseSpeed(1);
                 if (TileManager.getInstance().getTile(getX(), getY()).getType() == Tile.SPIKE)
+                {
+                    if (getIdentity() == "Player")
+                    {
+                        SoundScript.Instance.MakeSpikeHurtSound();
+                    }
                     vie -= 3;
+                }
             }
         }
     }
