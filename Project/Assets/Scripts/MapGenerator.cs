@@ -43,7 +43,7 @@ public class MapGenerator : MonoBehaviour
 
 		adjustBackground();
 		generateTiles();
-		//generateFog();
+		generateFog();
 		
 		generateZombies();
 		generateEnnemis();
@@ -194,7 +194,7 @@ public class MapGenerator : MonoBehaviour
 		onGround = false;
 		while(!onGround)
 		{
-			int x = Random.Range(width-5,width-2);
+			int x = Random.Range(width-4,width-1);
 			int y = Random.Range(1,height-1);
 
 			int type = tileManager.getTile(x,y).getType();
