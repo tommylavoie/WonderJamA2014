@@ -188,6 +188,7 @@ public class MapGenerator : MonoBehaviour
 				control.sprite = zomb;
 				fogManager.unFog(x,y);
 				onGround = true;
+                control.setSexe("M");
 			}
 		}
 		
@@ -209,6 +210,7 @@ public class MapGenerator : MonoBehaviour
 				control.sprite = zomb;
 				fogManager.unFog(x,y);
 				onGround = true;
+                control.setSexe("F");
 			}
 		}
 	}

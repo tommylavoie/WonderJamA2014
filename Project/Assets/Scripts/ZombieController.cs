@@ -7,6 +7,7 @@ public class ZombieController : Personnage {
 	public Animator anim;
 	int side;
 	int attackCount;
+    string sex = "";
 
 	// Use this for initialization
 	void Start () 
@@ -28,47 +29,48 @@ public class ZombieController : Personnage {
             base.Update();
             cameraFollow();
 
-            if (Input.GetKeyDown(KeyCode.RightArrow))
+            if ((sex == "F" && Input.GetKeyDown(KeyCode.RightArrow)) || (sex == "M" && Input.GetKeyDown(KeyCode.D)))
             {
                 if (checkNearby(1, 0))
                 {
-					if(side == -1)
-						side = 1;
-					transform.localScale = new Vector3(4*side,4,0);
+                    if (side == -1)
+                        side = 1;
+                    transform.localScale = new Vector3(4 * side, 4, 0);
                     MoveRight();
-					FogManager.getInstance().unFog(getX(), getY());
+                    FogManager.getInstance().unFog(getX(), getY());
                 }
             }
 
-            if (Input.GetKeyDown(KeyCode.LeftArrow))
+
+            if ((sex == "F" && Input.GetKeyDown(KeyCode.LeftArrow)) || (sex == "M" && Input.GetKeyDown(KeyCode.A)))
             {
                 if (checkNearby(-1, 0))
                 {
-					if(side == 1)
-						side = -1;
-					transform.localScale = new Vector3(4*side,4,1);
+                    if (side == 1)
+                        side = -1;
+                    transform.localScale = new Vector3(4 * side, 4, 1);
                     MoveLeft();
-					FogManager.getInstance().unFog(getX(), getY());
+                    FogManager.getInstance().unFog(getX(), getY());
                 }
             }
 
-            if (Input.GetKeyDown(KeyCode.UpArrow))
+            if ((sex == "F" && Input.GetKeyDown(KeyCode.UpArrow)) || (sex == "M" && Input.GetKeyDown(KeyCode.W)))
             {
                 if (checkNearby(0, 1))
                 {
-					transform.localScale = new Vector3(4*side,4,1);
+                    transform.localScale = new Vector3(4 * side, 4, 1);
                     MoveForward();
-					FogManager.getInstance().unFog(getX(), getY());
+                    FogManager.getInstance().unFog(getX(), getY());
                 }
             }
 
-            if (Input.GetKeyDown(KeyCode.DownArrow))
+            if ((sex == "F" && Input.GetKeyDown(KeyCode.DownArrow)) || (sex == "M" && Input.GetKeyDown(KeyCode.S)))
             {
                 if (checkNearby(0, -1))
                 {
-					transform.localScale = new Vector3(4*side,4,1);
+                    transform.localScale = new Vector3(4 * side, 4, 1);
                     MoveBackward();
-					FogManager.getInstance().unFog(getX(), getY());
+                    FogManager.getInstance().unFog(getX(), getY());
                 }
             }
 
@@ -163,5 +165,9 @@ public class ZombieController : Personnage {
                 Application.Quit();
             }
         }
+    }
+    public void setSexe(string sexe)
+    {
+        sex = sexe; 
     }
 }
