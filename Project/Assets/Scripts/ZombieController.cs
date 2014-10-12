@@ -13,7 +13,7 @@ public class ZombieController : Personnage {
 	{
 		anim = gameObject.GetComponent<Animator>();
         // setStats(vie, Attack, speed)
-        setStats(10, 2, 4);
+        setStats(20, 2, 4);
 		setIdentity("Player");
 		side = 1;
 		attackCount = 0;
@@ -72,7 +72,11 @@ public class ZombieController : Personnage {
             }
 
 			if(vie <= 0)
-				actif = false;
+            {
+                actif = false;
+                SoundScript.Instance.MakePlayerDeathSound();
+            }
+
 
 			if(attackCount > 0)
 			{
@@ -115,6 +119,7 @@ public class ZombieController : Personnage {
             if (isPowerUp != null)
             {
                 isPowerUp.takePowerUp(this);
+                SoundScript.Instance.MakePowerUpSound();
             }
             return true;
         }

@@ -9,6 +9,7 @@ public class SoundScript : MonoBehaviour {
     public AudioClip playerAttackSound;
     public AudioClip enemyAttackSound;
     public AudioClip playerDeathSound;
+    public AudioClip spikeHurtSound;
 
 	void Awake()
     {
@@ -37,6 +38,11 @@ public class SoundScript : MonoBehaviour {
     public void MakePlayerDeathSound()
     {
         MakeSound(playerDeathSound);
+    }
+
+    public void MakeSpikeHurtSound()
+    {
+        MakeSound(spikeHurtSound);
     }
 
     private void MakeSound(AudioClip soundClip)
