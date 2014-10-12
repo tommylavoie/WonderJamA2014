@@ -12,10 +12,12 @@ public class Personnage : Entity {
     public int movementUnit;
     int movementX;
     int movementY;
+	Personnage killer;
 
 	// Use this for initialization
 	void Start () 
     {
+		killer = null;
 	}
 	
 	// Update is called once per frame  
@@ -66,7 +68,7 @@ public class Personnage : Entity {
         {
             SoundScript.Instance.MakeenemyAttackSound();
         }
-        Enemy.Defend(attaque);
+        Enemy.Defend(this);
         decreaseSpeed(1);
         if (speed <= 0 && getIdentity() == "Player")
         {
@@ -74,9 +76,13 @@ public class Personnage : Entity {
         }
     }
 
-    public void Defend(int enemyForce)
+    public void Defend(Personnage attacker)
     {
-        vie -= enemyForce;
+        vie -= attacker.attaque;
+		if(vie <= 0)
+		{
+			killer = attacker;
+		}
     }
 
     public void setStats(int vieRecu, int attaqueRecu, int speedRecu)
@@ -130,6 +136,11 @@ public class Personnage : Entity {
             }
         }
     }
+
+	public Personnage getKiller()
+	{
+		return killer;
+	}
 
     public void movementSynchronisation()
     {
