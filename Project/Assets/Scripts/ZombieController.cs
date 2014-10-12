@@ -26,10 +26,6 @@ public class ZombieController : Personnage {
         {
             base.Update();
             cameraFollow();
-            if (vie <= 0)
-            {
-                Application.LoadLevel("GameOverScreen");
-            }
 
             if (Input.GetKeyDown(KeyCode.RightArrow))
             {
@@ -142,6 +138,27 @@ public class ZombieController : Personnage {
         {
             GUI.Label(new Rect(Screen.width * 0.02f, Screen.height * 0.02f, Screen.width * 0.5f, Screen.height * 0.1f), "Actions Restantes: " + speed +
                 ", Vie: " + vie + "/" + vieMaximale + ", Attaque: " + attaque);
+        }
+        if (vie <= 0)
+        {
+            float decalageGauche = (Screen.width - Screen.width * 0.3f) / 2;
+            GUI.Label(new Rect(decalageGauche, Screen.height * 0.25f, Screen.width * 0.3f, Screen.height * 0.1f), "<color=white><size=40>Mort, vous êtes</size></color>");
+            if (GUI.Button(new Rect(decalageGauche, Screen.height * 0.45f, Screen.width * 0.3f, Screen.height * 0.1f), "Rejouer"))
+            {
+                //Application.LoadLevel(Application.loadedLevel);
+            }
+            if (GUI.Button(new Rect(decalageGauche, Screen.height * 0.65f, Screen.width * 0.3f, Screen.height * 0.1f), "Quitter"))
+            {
+                Application.Quit();
+            }
+        }
+    }
+
+    override public void Defend(int enemyForce)
+    {
+        if (actif)
+        {
+            vie -= enemyForce;
         }
     }
 }
