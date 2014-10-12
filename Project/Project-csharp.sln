@@ -1,7 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2008
-
-Project("{9E727FDD-3AEC-8274-F466-85441900280D}") = "Project", "Assembly-CSharp-vs.csproj", "{5B9FF267-005F-A3BF-219E-FEAE2D8C894F}"
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp-vs", "Assembly-CSharp-vs.csproj", "{5B9FF267-005F-A3BF-219E-FEAE2D8C894F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,13 +16,7 @@ Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-																																																																								GlobalSection(MonoDevelopProperties) = preSolution
-=======
-																																																																				GlobalSection(MonoDevelopProperties) = preSolution
->>>>>>> 3c0fa71dd41e059cc06ecbc022a71c94a635e35c
-=======
-																													GlobalSection(MonoDevelopProperties) = preSolution
->>>>>>> 2592f0c4a2bedd630d6d867d970d72649fe38534
+	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = Assembly-CSharp.csproj
 		Policies = $0
 		$0.TextStylePolicy = $1
@@ -41,5 +34,4 @@ Global
 		$3.inheritsScope = text/plain
 		$3.scope = text/plain
 	EndGlobalSection
-
 EndGlobal

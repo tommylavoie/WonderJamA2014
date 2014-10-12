@@ -18,16 +18,10 @@ public class MainMenu : MonoBehaviour {
         Rect rect = new Rect(Screen.width * 0.35f, Screen.height * 0.45f, Screen.width * 0.3f, Screen.height * 0.1f);
         if (GUI.Button(rect, button1Text))
         {
-            Application.LoadLevel("Main");
+            Application.LoadLevel("GrilleMenu");
         }
 
-        Rect rect3 = new Rect(Screen.width * 0.35f, Screen.height * 0.60f, Screen.width * 0.3f, Screen.height * 0.1f);
-        if (GUI.Button(rect3, button3Text))
-        {
-            Application.LoadLevel("Tuto");
-        }
-
-        Rect rect2 = new Rect(Screen.width * 0.35f, Screen.height * 0.75f, Screen.width * 0.3f, Screen.height * 0.1f);
+        Rect rect2 = new Rect(Screen.width * 0.35f, Screen.height * 0.65f, Screen.width * 0.3f, Screen.height * 0.1f);
         if (GUI.Button(rect2, button2Text))
         {
             Application.Quit();
