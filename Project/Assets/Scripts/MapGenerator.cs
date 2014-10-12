@@ -34,7 +34,7 @@ public class MapGenerator : MonoBehaviour
 	public GameObject speedUp;
 	
 	// Use this for initialization
-	void Start () 
+	void Start ()
 	{
 		tileManager = TileManager.getInstance();
 		enemyManager = EnemyManager.getInstance();
@@ -43,7 +43,7 @@ public class MapGenerator : MonoBehaviour
 
 		adjustBackground();
 		generateTiles();
-		//generateFog();
+		generateFog();
 		
 		generateZombies();
 		generateEnnemis();
