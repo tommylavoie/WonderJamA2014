@@ -5,6 +5,7 @@ public class ZombieController : Personnage {
 
     public bool actif;
 	public Animator anim;
+	int side;
 
 	// Use this for initialization
 	void Start () 
@@ -13,6 +14,7 @@ public class ZombieController : Personnage {
         // setStats(vie, Attack, speed)
         setStats(10, 2, 4);
 		setIdentity("Player");
+		side = 1;
 	}
 	
 	// Update is called once per frame
@@ -31,6 +33,9 @@ public class ZombieController : Personnage {
             {
                 if (checkNearby(1, 0))
                 {
+					if(side == -1)
+						side = 1;
+					transform.localScale = new Vector3(4*side,4,0);
                     MoveRight();
 					FogManager.getInstance().unFog(getX(), getY());
                 }
@@ -40,6 +45,9 @@ public class ZombieController : Personnage {
             {
                 if (checkNearby(-1, 0))
                 {
+					if(side == 1)
+						side = -1;
+					transform.localScale = new Vector3(4*side,4,1);
                     MoveLeft();
 					FogManager.getInstance().unFog(getX(), getY());
                 }
@@ -49,6 +57,7 @@ public class ZombieController : Personnage {
             {
                 if (checkNearby(0, 1))
                 {
+					transform.localScale = new Vector3(4*side,4,1);
                     MoveForward();
 					FogManager.getInstance().unFog(getX(), getY());
                 }
@@ -58,6 +67,7 @@ public class ZombieController : Personnage {
             {
                 if (checkNearby(0, -1))
                 {
+					transform.localScale = new Vector3(4*side,4,1);
                     MoveBackward();
 					FogManager.getInstance().unFog(getX(), getY());
                 }
