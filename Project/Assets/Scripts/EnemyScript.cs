@@ -4,6 +4,8 @@ using System.Collections;
 public class EnemyScript : Personnage {
 
     int enemyType; 
+
+	public Animator anim;
     
     /* 0 = rapide mais faible (dep4, 
      * 1 = tank
@@ -14,6 +16,7 @@ public class EnemyScript : Personnage {
 	void Start () 
 	{
 		setIdentity("Enemy");
+		anim = gameObject.GetComponent<Animator>();
 	}
 
 	public void setEnemyType(int type)
@@ -43,6 +46,8 @@ public class EnemyScript : Personnage {
             Destroy(this);
             Destroy(sprite);
         }
+
+		anim.SetFloat("vitesse", movementUnit);
 	}
 
     // Function 

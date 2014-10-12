@@ -4,9 +4,12 @@ using System.Collections;
 public class ZombieController : Personnage {
 
     public bool actif;
+	public Animator anim;
 
 	// Use this for initialization
-	void Start () {
+	void Start () 
+	{
+		anim = gameObject.GetComponent<Animator>();
         // setStats(vie, Attack, speed)
         setStats(10, 2, 4);
 		setIdentity("Player");
@@ -15,7 +18,6 @@ public class ZombieController : Personnage {
 	// Update is called once per frame
 	void Update () 
     {
-
         if (actif)
         {
             base.Update();
@@ -61,6 +63,8 @@ public class ZombieController : Personnage {
                 }
             }
         }
+
+		anim.SetFloat("vitesse", movementUnit);
 	}
 
     bool checkNearby(int x, int y)
