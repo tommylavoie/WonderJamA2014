@@ -26,6 +26,11 @@ public class FogManager
 	
 	private FogManager()
 	{
+		restartFog();
+	}
+
+	public void restartFog()
+	{
 		fogs = new GameObject[MapGenerator.width][];
 		for(int i=0;i<MapGenerator.width;i++)
 		{
@@ -69,6 +74,13 @@ public class FogManager
 				fogs[x][y] = null;
 			}
 		}
+	}
+
+	public bool isFog(int x, int y)
+	{
+		if(fogs[x][y] != null)
+			return true;
+		return false;
 	}
 }
 

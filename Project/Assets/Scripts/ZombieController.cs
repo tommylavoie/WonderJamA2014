@@ -130,6 +130,7 @@ public class ZombieController : Personnage {
 
     public void changeActive()
     {
+		attackCount = 0;
         actif = !actif;
 
         if(actif)
@@ -175,11 +176,13 @@ public class ZombieController : Personnage {
         if (vie <= 0)
         {
             float decalageGauche = (Screen.width - Screen.width * 0.333f) / 2;
-            GUI.Label(new Rect(decalageGauche-Screen.width*0.15f, Screen.height * 0.25f, Screen.width * 0.8f, Screen.height * 0.4f), 
-			          "<color=white><size=40>Vous avez été tué par " + getKillerName() + ".</size></color>");
+            GUI.Label(new Rect(decalageGauche-Screen.width*0.25f, Screen.height * 0.25f, Screen.width * 2f, Screen.height * 0.4f), 
+			          "<color=white><size=30>Vous avez été tué par " + getKillerName() + ".</size></color>");
             if (GUI.Button(new Rect(decalageGauche, Screen.height * 0.45f, Screen.width * 0.3f, Screen.height * 0.1f), "Rejouer"))
             {
 				TileManager.getInstance().resetTiles();
+				EnemyManager.getInstance().restartEnemies();
+				FogManager.getInstance().restartFog();
                 Application.LoadLevel("Main");
             }
             if (GUI.Button(new Rect(Screen.width * 0.333f, Screen.height * 0.65f, Screen.width * 0.3f, Screen.height * 0.1f), "Quitter"))

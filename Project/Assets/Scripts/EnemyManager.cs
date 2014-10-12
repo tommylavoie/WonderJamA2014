@@ -19,8 +19,13 @@ public class EnemyManager{
 
     private EnemyManager()
     {
-        lesEnemies = new List<EnemyScript>();
+		restartEnemies();
     }
+
+	public void restartEnemies()
+	{
+		lesEnemies = new List<EnemyScript>();
+	}
 
     public void updateEnemies()
     {

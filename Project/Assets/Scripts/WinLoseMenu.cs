@@ -10,6 +10,8 @@ public class WinLoseMenu : MonoBehaviour
         if (GUI.Button(new Rect(Screen.width * 0.35f, Screen.height * 0.65f, Screen.width * 0.3f, Screen.height * 0.1f), "Rejouer"))
         {
 			TileManager.getInstance().resetTiles();
+			EnemyManager.getInstance().restartEnemies();
+			FogManager.getInstance().restartFog();
             Application.LoadLevel("Main");
         }
         if (GUI.Button(new Rect(Screen.width * 0.35f, Screen.height * 0.85f, Screen.width * 0.3f, Screen.height * 0.1f), "Quitter"))
