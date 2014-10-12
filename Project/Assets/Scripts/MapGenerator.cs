@@ -217,27 +217,34 @@ public class MapGenerator : MonoBehaviour
 	
 	bool isCharacterOnTile(int x, int y)
 	{
-		var query =
-			from c in tileManager.getTile(x,y).getEntities()
-				where c.getIdentity() == "Player" || c.getIdentity() == "Enemy"
-				select c;
-		if(query.Count() != 0)
-			return true;
-		else
-			return false;
+		foreach(Entity entity in tileManager.getTile(x,y).getEntities())
+		{
+			if(entity != null)
+			{
+				if(entity.getIdentity() == "Player" || entity.getIdentity() == "Enemy")
+				{
+					return true;
+				}
+			}
+		}
+
+		return false;
 	}
 
 	bool isPowerUpOnTile(int x, int y)
 	{
-		var query =
-			from p in tileManager.getTile(x,y).getEntities()
-				where p.getIdentity() == "PowerUp"
-				select p;
-
-		if(query.Count() != 0)
-			return true;
-		else
-			return false;
+		foreach(Entity entity in tileManager.getTile(x,y).getEntities())
+		{
+			if(entity != null)
+			{
+				if(entity.getIdentity() == "PowerUp")
+				{
+					return true;
+				}
+			}
+		}
+		
+		return false;
 	}
 	
 	void generateEnnemis()

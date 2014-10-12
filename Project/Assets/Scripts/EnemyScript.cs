@@ -54,8 +54,9 @@ public class EnemyScript : Personnage {
 		if(actif && canAttack)
 		{
 			DoAction();
-			if(endTurn  && lastResort < 6 && vie >=0)
+			if(endTurn  || lastResort >= 6 || vie <= 0)
 			{
+				lastResort = 0;
 				endTurn = false;
 				canAttack = false;
 				actif = false;
