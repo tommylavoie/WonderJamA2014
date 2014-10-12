@@ -43,7 +43,7 @@ public class MapGenerator : MonoBehaviour
 
 		adjustBackground();
 		generateTiles();
-		generateFog();
+		//generateFog();
 		
 		generateZombies();
 		generateEnnemis();
@@ -52,7 +52,8 @@ public class MapGenerator : MonoBehaviour
 
 	void adjustBackground()
 	{
-		background.transform.position = new Vector3(initialX-20,initialY-20, 101);
+		int weight = (5*width)-20;
+		background.transform.position = new Vector3(weight,weight, 101);
 		background.transform.localScale = new Vector3(width+40,1,height+40);
 	}
 	
@@ -183,7 +184,6 @@ public class MapGenerator : MonoBehaviour
 				GameObject zomb = (GameObject)zomb2;
 				ZombieController control = (ZombieController)zomb.GetComponent<ZombieController>();
 				control.setPosition(x,y);
-				tileManager.addEntityToTile(x,y,control);
 				turnManager.zombieMale = control;
 				control.sprite = zomb;
 				fogManager.unFog(x,y);
@@ -205,7 +205,6 @@ public class MapGenerator : MonoBehaviour
 				GameObject zomb = (GameObject)zomb2;
 				ZombieController control = (ZombieController)zomb.GetComponent<ZombieController>();
 				control.setPosition(x,y);
-				tileManager.addEntityToTile(x,y,control);
 				turnManager.zombieFemale = control;
 				control.sprite = zomb;
 				fogManager.unFog(x,y);
@@ -220,6 +219,19 @@ public class MapGenerator : MonoBehaviour
 			from c in tileManager.getTile(x,y).getEntities()
 				where c.getIdentity() == "Player" || c.getIdentity() == "Enemy"
 				select c;
+		if(query.Count() != 0)
+			return true;
+		else
+			return false;
+	}
+
+	bool isPowerUpOnTile(int x, int y)
+	{
+		var query =
+			from p in tileManager.getTile(x,y).getEntities()
+				where p.getIdentity() == "PowerUp"
+				select p;
+
 		if(query.Count() != 0)
 			return true;
 		else
@@ -248,7 +260,6 @@ public class MapGenerator : MonoBehaviour
 					EnemyScript control = (EnemyScript)enemy.GetComponent<EnemyScript>();
 					control.setPosition(x,y);
 					control.setEnemyType(type);
-					tileManager.addEntityToTile(x,y,control);
 					enemyManager.lesEnemies.Add (control);
 					control.sprite = enemy;
 
@@ -261,7 +272,6 @@ public class MapGenerator : MonoBehaviour
 					EnemyScript control = (EnemyScript)enemy.GetComponent<EnemyScript>();
 					control.setPosition(x,y);
 					control.setEnemyType(type);
-					tileManager.addEntityToTile(x,y,control);
 					enemyManager.lesEnemies.Add (control);
 					control.sprite = enemy;
 				}
@@ -273,7 +283,6 @@ public class MapGenerator : MonoBehaviour
 					EnemyScript control = (EnemyScript)enemy.GetComponent<EnemyScript>();
 					control.setPosition(x,y);
 					control.setEnemyType(type);
-					tileManager.addEntityToTile(x,y,control);
 					enemyManager.lesEnemies.Add (control);
 					control.sprite = enemy;
 				}
@@ -292,7 +301,7 @@ public class MapGenerator : MonoBehaviour
 			int x = Random.Range(1,width-1);
 			int y = Random.Range(1,height-1);
 			
-			if(tileManager.getTile(x,y).getType() != Tile.MOUNTAIN)
+			if(tileManager.getTile(x,y).getType() != Tile.MOUNTAIN && !isPowerUpOnTile(x,y))
 			{
 				int type = Random.Range(0, 3);
 				if(type == PowerUp.HEAL)
@@ -303,7 +312,6 @@ public class MapGenerator : MonoBehaviour
 					PowerUp control = (PowerUp)power.GetComponent<PowerUp>();
 					control.setPosition(x,y);
 					control.setType(type);
-					tileManager.addEntityToTile(x,y,control);
 					control.sprite = power;
 				}
 				if(type == PowerUp.ATTACK)
@@ -314,7 +322,6 @@ public class MapGenerator : MonoBehaviour
 					PowerUp control = (PowerUp)power.GetComponent<PowerUp>();
 					control.setPosition(x,y);
 					control.setType(type);
-					tileManager.addEntityToTile(x,y,control);
 					control.sprite = power;
 				}
 				if(type == PowerUp.SPEED)
@@ -325,7 +332,6 @@ public class MapGenerator : MonoBehaviour
 					PowerUp control = (PowerUp)power.GetComponent<PowerUp>();
 					control.setPosition(x,y);
 					control.setType(type);
-					tileManager.addEntityToTile(x,y,control);
 					control.sprite = power;
 				}
 				cpt++;

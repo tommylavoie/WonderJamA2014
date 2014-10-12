@@ -14,6 +14,7 @@ public class ZombieController : Personnage {
 		anim = gameObject.GetComponent<Animator>();
         // setStats(vie, Attack, speed)
         setStats(20, 2, 4);
+		vieMaximale = 20;
 		setIdentity("Player");
 		side = 1;
 		attackCount = 0;
