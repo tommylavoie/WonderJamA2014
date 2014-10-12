@@ -34,7 +34,7 @@ public class MapGenerator : MonoBehaviour
 	public GameObject speedUp;
 	
 	// Use this for initialization
-	void Start () 
+	void Start ()
 	{
 		tileManager = TileManager.getInstance();
 		enemyManager = EnemyManager.getInstance();
@@ -43,7 +43,7 @@ public class MapGenerator : MonoBehaviour
 
 		adjustBackground();
 		generateTiles();
-		//generateFog();
+		generateFog();
 		
 		generateZombies();
 		generateEnnemis();
@@ -239,7 +239,7 @@ public class MapGenerator : MonoBehaviour
 			
 			if(tileManager.getTile(x,y).getType() == Tile.GROUND && !isCharacterOnTile(x,y))
 			{
-				int type = Random.Range(0, 3);
+				int type = Random.Range(0, 2);
 				if(type == EnemyScript.GHOST)
 				{
 					ghost.transform.position = new Vector3(initialY+(10*x),initialX+(10*y), 0);

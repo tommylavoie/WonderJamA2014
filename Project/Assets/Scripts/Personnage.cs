@@ -9,7 +9,7 @@ public class Personnage : Entity {
     public int speed = 1;
     public int maxSpeed;
     public int movingScale = 10;
-    int movementUnit;
+    public int movementUnit;
     int movementX;
     int movementY;
 
