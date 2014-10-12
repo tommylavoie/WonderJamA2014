@@ -14,6 +14,7 @@ public class ZombieController : Personnage {
 		anim = gameObject.GetComponent<Animator>();
         // setStats(vie, Attack, speed)
         setStats(20, 2, 4);
+		vieMaximale = 20;
 		setIdentity("Player");
 		side = 1;
 		attackCount = 0;
@@ -152,11 +153,12 @@ public class ZombieController : Personnage {
         {
             float decalageGauche = (Screen.width - Screen.width * 0.333f) / 2;
             GUI.Label(new Rect(decalageGauche, Screen.height * 0.25f, Screen.width * 0.5f, Screen.height * 0.4f), "<color=white><size=40>Mort, vous êtes</size></color>");
-            //if (GUI.Button(new Rect(decalageGauche, Screen.height * 0.45f, Screen.width * 0.3f, Screen.height * 0.1f), "Rejouer"))
-            //{
-                //Application.LoadLevel(Application.loadedLevel);
-            //}
-            if (GUI.Button(new Rect(Screen.width * 0.333f, Screen.height * 0.45f, Screen.width * 0.3f, Screen.height * 0.1f), "Quitter"))
+            if (GUI.Button(new Rect(decalageGauche, Screen.height * 0.45f, Screen.width * 0.3f, Screen.height * 0.1f), "Rejouer"))
+            {
+				TileManager.getInstance().resetTiles();
+                Application.LoadLevel("Main");
+            }
+            if (GUI.Button(new Rect(Screen.width * 0.333f, Screen.height * 0.65f, Screen.width * 0.3f, Screen.height * 0.1f), "Quitter"))
             {
                 Application.Quit();
             }
