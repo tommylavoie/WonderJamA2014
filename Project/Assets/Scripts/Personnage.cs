@@ -38,82 +38,22 @@ public class Personnage : Entity {
 
     public void MoveRight()
     {
-        if (speed > 0)
-        {
-            if (TileManager.getInstance().getTile(getX() + 1, getY()).getType() != Tile.MOUNTAIN)
-            {
-                setPosition(getX() + 1, getY());
-                movementUnit = movingScale;
-                movementX = 1;
-                movementY = 0;
-                if (TileManager.getInstance().getTile(getX(), getY()).getType() == Tile.MUD)
-                    decreaseSpeed(2);
-                else
-                    decreaseSpeed(1);
-                if (TileManager.getInstance().getTile(getX(), getY()).getType() == Tile.SPIKE)
-                    vie -= 3;
-            }
-        }
+        move(1, 0);
     }
 
     public void MoveLeft()
     {
-        if(speed > 0)
-		{
-            if (TileManager.getInstance().getTile(getX() - 1, getY()).getType() != Tile.MOUNTAIN)
-            {
-                setPosition(getX() - 1, getY());
-                movementUnit = movingScale;
-                movementX = -1;
-                movementY = 0;
-                if (TileManager.getInstance().getTile(getX(), getY()).getType() == Tile.MUD)
-                    decreaseSpeed(2);
-                else
-                    decreaseSpeed(1);
-                if (TileManager.getInstance().getTile(getX(), getY()).getType() == Tile.SPIKE)
-                    vie -= 3;
-            }
-        }
+        move(-1, 0);
     }
 
     public void MoveForward()
     {
-        if(speed > 0)
-        {
-            if (TileManager.getInstance().getTile(getX(), getY() + 1).getType() != Tile.MOUNTAIN)
-            {
-                setPosition(getX(), getY() + 1);
-                movementUnit = movingScale;
-                movementX = 0;
-                movementY = 1;
-                if (TileManager.getInstance().getTile(getX(), getY()).getType() == Tile.MUD)
-                    decreaseSpeed(2);
-                else
-                    decreaseSpeed(1);
-                if (TileManager.getInstance().getTile(getX(), getY()).getType() == Tile.SPIKE)
-                    vie -= 3;
-            }
-        }
+        move(0, 1);
     }
 
     public void MoveBackward()
     {
-        if (speed > 0)
-        {
-            if (TileManager.getInstance().getTile(getX(), getY() - 1).getType() != Tile.MOUNTAIN)
-            {
-                setPosition(getX(), getY() - 1);
-                movementUnit = movingScale;
-                movementX = 0;
-                movementY = -1;
-                if (TileManager.getInstance().getTile(getX(), getY()).getType() == Tile.MUD)
-                    decreaseSpeed(2);
-                else
-                    decreaseSpeed(1);
-                if (TileManager.getInstance().getTile(getX(), getY()).getType() == Tile.SPIKE)
-                    vie -= 3;
-            }
-        }
+        move(0, -1);
     }
 
     public void Attack(Personnage Enemy)
@@ -129,6 +69,8 @@ public class Personnage : Entity {
     public void Defend(int enemyForce)
     {
         vie -= enemyForce;
+        if (getIdentity() == "Player")
+            Debug.Log("Mange des dégats" + getIdentity());
     }
 
     public void setStats(int vieRecu, int attaqueRecu, int speedRecu)
@@ -142,6 +84,32 @@ public class Personnage : Entity {
     public void setSpeedBack()
     {
         speed = maxSpeed;
+    }
+
+    void move(int x, int y)
+    {
+        if (speed > 0)
+        {
+            if (TileManager.getInstance().getTile(getX() + x, getY() + y).getType() != Tile.MOUNTAIN)
+            {
+                setPosition(getX() + x, getY() + y);
+                movementUnit = movingScale;
+                movementX = x;
+                movementY = y;
+                if (TileManager.getInstance().getTile(getX(), getY()).getType() == Tile.MUD)
+                    decreaseSpeed(2);
+                else
+                    decreaseSpeed(1);
+                if (TileManager.getInstance().getTile(getX(), getY()).getType() == Tile.SPIKE)
+                { 
+                    vie -= 3;
+                    if (getIdentity() == "Player")
+                    {
+                        Debug.Log("dans des spike" + getIdentity());
+                    }
+                }
+            }
+        }
     }
 
     public void decreaseSpeed(int speedReduced)
@@ -159,11 +127,15 @@ public class Personnage : Entity {
 
     public void movementSynchronisation()
     {
+		wait();
+        TurnManager.getInstance().changeActivePlayer();
+    }
+
+	public void wait()
+	{
 		try
 		{
-        	System.Threading.Thread.Sleep(300);
+			System.Threading.Thread.Sleep(300);
 		}catch{}
-        TurnManager.getInstance().changeActivePlayer();
-        //EnemyManager.getInstance().updateEnemies();
-    }
+	}
 }
