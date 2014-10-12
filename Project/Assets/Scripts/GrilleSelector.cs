@@ -24,7 +24,7 @@ public class GrilleSelector : MonoBehaviour {
         if (GUI.Button(new Rect(Screen.width * 0.47f, Screen.height * 0.6f, Screen.width * 0.05f, Screen.height * 0.05f), "Ok"))
         {
             int n;
-            if (int.TryParse(nombreCase, out n) && n > 10)
+            if (int.TryParse(nombreCase, out n) && n >= 10)
             {
                 if(n < 10)
                 {
