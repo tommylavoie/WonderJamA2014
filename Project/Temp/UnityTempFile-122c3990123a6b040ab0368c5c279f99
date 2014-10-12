@@ -49,6 +49,7 @@ Assets/Scripts/PowerUp.cs
 Assets/Scripts/Tile.cs
 Assets/Scripts/TileManager.cs
 Assets/Scripts/TurnManager.cs
+Assets/Scripts/TutoScript.cs
 Assets/Scripts/WinLoseMenu.cs
 Assets/Scripts/ZombieController.cs
 -r:"C:/Program Files (x86)/Unity/Editor/Data/Mono\lib/mono/unity\System.Runtime.Serialization.dll"
