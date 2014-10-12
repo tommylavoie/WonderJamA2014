@@ -145,8 +145,8 @@ public class ZombieController : Personnage {
         }
         if (vie <= 0)
         {
-            float decalageGauche = (Screen.width - Screen.width * 0.225f) / 2;
-            GUI.Label(new Rect(decalageGauche, Screen.height * 0.25f, Screen.width * 0.3f, Screen.height * 0.1f), "<color=white><size=40>Mort, vous êtes</size></color>");
+            float decalageGauche = (Screen.width - Screen.width * 0.333f) / 2;
+            GUI.Label(new Rect(decalageGauche, Screen.height * 0.25f, Screen.width * 0.5f, Screen.height * 0.4f), "<color=white><size=40>Mort, vous êtes</size></color>");
             //if (GUI.Button(new Rect(decalageGauche, Screen.height * 0.45f, Screen.width * 0.3f, Screen.height * 0.1f), "Rejouer"))
             //{
                 //Application.LoadLevel(Application.loadedLevel);
