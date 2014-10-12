@@ -6,6 +6,7 @@ public class ZombieController : Personnage {
     public bool actif;
 	public Animator anim;
 	int side;
+	int attackCount;
 
 	// Use this for initialization
 	void Start () 
@@ -15,6 +16,7 @@ public class ZombieController : Personnage {
         setStats(10, 2, 4);
 		setIdentity("Player");
 		side = 1;
+		attackCount = 0;
 	}
 	
 	// Update is called once per frame
@@ -72,9 +74,15 @@ public class ZombieController : Personnage {
 					FogManager.getInstance().unFog(getX(), getY());
                 }
             }
+
+			if(attackCount > 0)
+			{
+				attackCount--;
+			}
         }
 
 		anim.SetFloat("vitesse", movementUnit);
+		anim.SetInteger("attackCount", attackCount);
 	}
 
     bool checkNearby(int x, int y)
@@ -98,12 +106,12 @@ public class ZombieController : Personnage {
         }
         if (isEnemy != null)
         {
+			attackCount = 5;
             Attack(isEnemy);
             return false;
         }
         else
         {
-            
             if (isPowerUp != null)
             {
                 isPowerUp.takePowerUp(this);

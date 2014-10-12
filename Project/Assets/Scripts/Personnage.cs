@@ -51,7 +51,10 @@ public class Personnage : Entity {
                 else
                     decreaseSpeed(1);
                 if (TileManager.getInstance().getTile(getX(), getY()).getType() == Tile.SPIKE)
+				{
+					Debug.Log (getIdentity() + " est sur un pique");
                     vie -= 3;
+				}
             }
         }
     }
@@ -159,11 +162,15 @@ public class Personnage : Entity {
 
     public void movementSynchronisation()
     {
+		wait();
+        TurnManager.getInstance().changeActivePlayer();
+    }
+
+	public void wait()
+	{
 		try
 		{
-        	System.Threading.Thread.Sleep(300);
+			System.Threading.Thread.Sleep(300);
 		}catch{}
-        TurnManager.getInstance().changeActivePlayer();
-        //EnemyManager.getInstance().updateEnemies();
-    }
+	}
 }
