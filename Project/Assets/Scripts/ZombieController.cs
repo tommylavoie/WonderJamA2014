@@ -71,6 +71,9 @@ public class ZombieController : Personnage {
                 }
             }
 
+			if(vie <= 0)
+				actif = false;
+
 			if(attackCount > 0)
 			{
 				attackCount--;
@@ -79,6 +82,7 @@ public class ZombieController : Personnage {
 
 		anim.SetFloat("vitesse", movementUnit);
 		anim.SetInteger("attackCount", attackCount);
+		anim.SetInteger("life", vie);
 	}
 
     bool checkNearby(int x, int y)

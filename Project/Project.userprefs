@@ -1,19 +1,17 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Personnage.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\MapGenerator.cs">
     <Files>
-      <File FileName="Assets\Scripts\ZombieController.cs" Line="16" Column="24" />
-      <File FileName="Assets\Scripts\Personnage.cs" Line="97" Column="30" />
-      <File FileName="Assets\Scripts\EnemyScript.cs" Line="50" Column="29" />
+      <File FileName="Assets\Scripts\Personnage.cs" Line="65" Column="39" />
+      <File FileName="Assets\Scripts\EnemyScript.cs" Line="50" Column="10" />
       <File FileName="Assets\Scripts\TurnManager.cs" Line="9" Column="1" />
-      <File FileName="Assets\Scripts\MapGenerator.cs" Line="46" Column="5" />
+      <File FileName="Assets\Scripts\MapGenerator.cs" Line="46" Column="3" />
       <File FileName="Assets\Scripts\EnemyManager.cs" Line="9" Column="37" />
+      <File FileName="Assets\Scripts\ZombieController.cs" Line="85" Column="32" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore>
-      <Breakpoint file="C:\Users\Tommy\Documents\WonderJamA2014\WonderJamA2014\Project\Assets\Scripts\Personnage.cs" line="117" />
-    </BreakpointStore>
+    <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>

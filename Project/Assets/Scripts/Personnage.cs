@@ -69,8 +69,6 @@ public class Personnage : Entity {
     public void Defend(int enemyForce)
     {
         vie -= enemyForce;
-        if (getIdentity() == "Player")
-            Debug.Log("Mange des dégats" + getIdentity());
     }
 
     public void setStats(int vieRecu, int attaqueRecu, int speedRecu)
@@ -103,10 +101,6 @@ public class Personnage : Entity {
                 if (TileManager.getInstance().getTile(getX(), getY()).getType() == Tile.SPIKE)
                 { 
                     vie -= 3;
-                    if (getIdentity() == "Player")
-                    {
-                        Debug.Log("dans des spike" + getIdentity());
-                    }
                 }
             }
         }
