@@ -126,7 +126,7 @@ public class Personnage : Entity {
         }
     }
 
-    virtual public void Defend(int enemyForce)
+    public void Defend(int enemyForce)
     {
         vie -= enemyForce;
     }
