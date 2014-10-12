@@ -27,6 +27,25 @@ public class EnemyManager{
 		lesEnemies = new List<EnemyScript>();
 	}
 
+	public void updateEnemy(int index)
+	{
+		EnemyScript enemy = lesEnemies[index];
+		if(lesEnemies[index] != null)
+		{
+			if(!FogManager.getInstance().isFog(enemy.getX(), enemy.getY()))
+			{
+				lesEnemies[index].actif = true;
+				lesEnemies[index].StartActions();
+			}
+			else
+				TurnManager.getInstance().nextEnemy();
+		}
+		else
+		{
+			TurnManager.getInstance().nextEnemy();
+		}
+	}
+
     public void updateEnemies()
     {
         foreach(EnemyScript enemy in lesEnemies)

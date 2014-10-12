@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Personnage : Entity {
-
-    public int vie;
+public class Personnage : Entity 
+{
+	public bool actif;
+	public int vie;
     public int vieMaximale;
     public int attaque;
     public int speed = 1;
@@ -13,17 +14,24 @@ public class Personnage : Entity {
     int movementX;
     int movementY;
 	Personnage killer;
+	public bool waitActive;
 
 	// Use this for initialization
 	void Start () 
     {
 		killer = null;
+		waitActive = false;
 	}
 	
 	// Update is called once per frame  
 	public void Update () 
     {
-        if (movementUnit > 0)
+		if(actif)
+		{
+			cameraFollow();
+		}
+		
+		if (movementUnit > 0)
         {
             transform.Translate(new Vector3(movementX, movementY, 0));
             movementUnit--;
@@ -98,6 +106,12 @@ public class Personnage : Entity {
         speed = maxSpeed;
     }
 
+	public void cameraFollow()
+	{
+		Vector3 cameraPosition = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y, 0);
+		Camera.main.transform.Translate(transform.position - cameraPosition);
+	}
+
     void move(int x, int y)
     {
         if (speed > 0)
@@ -120,7 +134,7 @@ public class Personnage : Entity {
                     }
                     vie -= 3;
                 }
-            }
+			}
         }
     }
 
@@ -144,15 +158,24 @@ public class Personnage : Entity {
 
     public void movementSynchronisation()
     {
-		wait();
+		wait(300);
 		TurnManager.getInstance().changeActivePlayer();
     }
 
-	public void wait()
+	IEnumerator waitCharacter()
+	{
+		Debug.Log ("WAIT");
+		waitActive = true;
+		yield return new WaitForSeconds (1.0f);
+		Debug.Log ("FIN WAIT");
+		waitActive = false;
+	}
+
+	public void wait(int ms)
 	{
 		try
 		{
-			System.Threading.Thread.Sleep(300);
+			System.Threading.Thread.Sleep(ms);
 		}catch{}
 	}
 }

@@ -43,7 +43,7 @@ public class MapGenerator : MonoBehaviour
 
 		adjustBackground();
 		generateTiles();
-		//generateFog();
+		generateFog();
 		
 		generateZombies();
 		generateEnnemis();

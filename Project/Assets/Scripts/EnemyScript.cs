@@ -5,6 +5,8 @@ public class EnemyScript : Personnage {
 
     int enemyType;
 	int attackCount;
+	bool canAttack;
+	int lastResort = 0;
 
 	public Animator anim;
     
@@ -19,6 +21,7 @@ public class EnemyScript : Personnage {
 		setIdentity("Enemy");
 		anim = gameObject.GetComponent<Animator>();
 		attackCount = 0;
+		canAttack = false;
 	}
 
 	public void setEnemyType(int type)
@@ -42,9 +45,31 @@ public class EnemyScript : Personnage {
 	void Update () 
 	{
 		base.Update();
+
+		if(actif && canAttack)
+		{
+			DoAction();
+			if(speed > 0 && lastResort < 6 && vie >=0)
+			{
+				lastResort++;
+				canAttack = false;
+				StartCoroutine(waitEnemy());
+			}
+			else
+			{
+				lastResort = 0;
+				canAttack = false;
+				actif = false;
+				setSpeedBack();
+				TurnManager.getInstance().nextEnemy();
+			}
+		}
+
         if (vie <= 0)
         {
 			EnemyManager.getInstance().lesEnemies.Remove(this);
+			if(actif)
+				TurnManager.getInstance().nextEnemy();
             Destroy(this);
             Destroy(sprite);
         }
@@ -59,66 +84,79 @@ public class EnemyScript : Personnage {
 	}
 
     // Function 
-    public void Action() {
-		int lastResort = 0;
+    public void Action() 
+	{
+		actif = true;
+
         while (speed > 0 && lastResort < 5)
         {
-            ZombieController player = isThereNearbyPlayer();
-            if (player == null)
-            { // Attack if there's a player nearby, move if not
-				int random = Random.Range(0, 3);
-                switch (random)
-                {
-					case 0:{
-						bool canMove = true;
-						foreach (Entity e in TileManager.getInstance().getTile(getX() + 1, getY()).getEntities())
-						{
-							if (e.getIdentity() == "Enemy")
-								canMove = false;
-						}
-						if (canMove)
-							MoveRight();
-						break;}
-					case 1: {
-						bool canMove = true;
-						foreach (Entity e in TileManager.getInstance().getTile(getX() - 1, getY()).getEntities())
-						{
-							if (e.getIdentity() == "Enemy")
-								canMove = false;
-						}
-						if (canMove)
-							MoveLeft();
-						break;}
-					case 2: {
-						bool canMove = true;
-						foreach (Entity e in TileManager.getInstance().getTile(getX(), getY() + 1).getEntities())
-						{
-							if (e.getIdentity() == "Enemy")
-								canMove = false;
-						}
-						if (canMove)
-							MoveForward();
-						break;}
-					case 3:{
-						bool canMove = true;
-						foreach (Entity e in TileManager.getInstance().getTile(getX(), getY() - 1).getEntities())
-						{
-							if (e.getIdentity() == "Enemy")
-								MoveBackward();
-						}
-						if (canMove)
-							MoveBackward();
-						break;}
-					}
-			}
-			else // ATTACK THE PLAYER
-			{
-				attackCount = 5;
-				Attack(player);
-                player = null;
-			}
-			lastResort++;
+			DoAction();
 		}
+		actif = false;
+	}
+
+	public void StartActions()
+	{
+		StartCoroutine(waitEnemy());
+	}
+
+	public void DoAction()
+	{
+		ZombieController player = isThereNearbyPlayer();
+		if (player == null)
+		{ // Attack if there's a player nearby, move if not
+			int random = Random.Range(0, 3);
+			switch (random)
+			{
+			case 0:{
+				bool canMove = true;
+				foreach (Entity e in TileManager.getInstance().getTile(getX() + 1, getY()).getEntities())
+				{
+					if (e.getIdentity() == "Enemy")
+						canMove = false;
+				}
+				if (canMove)
+					MoveRight();
+				break;}
+			case 1: {
+				bool canMove = true;
+				foreach (Entity e in TileManager.getInstance().getTile(getX() - 1, getY()).getEntities())
+				{
+					if (e.getIdentity() == "Enemy")
+						canMove = false;
+				}
+				if (canMove)
+					MoveLeft();
+				break;}
+			case 2: {
+				bool canMove = true;
+				foreach (Entity e in TileManager.getInstance().getTile(getX(), getY() + 1).getEntities())
+				{
+					if (e.getIdentity() == "Enemy")
+						canMove = false;
+				}
+				if (canMove)
+					MoveForward();
+				break;}
+			case 3:{
+				bool canMove = true;
+				foreach (Entity e in TileManager.getInstance().getTile(getX(), getY() - 1).getEntities())
+				{
+					if (e.getIdentity() == "Enemy")
+						MoveBackward();
+				}
+				if (canMove)
+					MoveBackward();
+				break;}
+			}
+		}
+		else // ATTACK THE PLAYER
+		{
+			attackCount = 5;
+			Attack(player);
+			player = null;
+		}
+		//lastResort++;
 	}
 	
 	// Check if there's a player in one of the four adjacent tile (will only one if the 2 player are adjacent to the enemy
@@ -146,8 +184,12 @@ public class EnemyScript : Personnage {
         return null;
     }
 
-    
-
+	IEnumerator waitEnemy()
+	{
+		yield return new WaitForSeconds (0.3f);
+		canAttack = true;
+	}
+	
 	public static int GHOST = 0;
 	public static int ELEPHANT = 1;
 	public static int FISH = 2;

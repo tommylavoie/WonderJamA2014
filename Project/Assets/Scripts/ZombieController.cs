@@ -3,7 +3,6 @@ using System.Collections;
 
 public class ZombieController : Personnage {
 
-    public bool actif;
 	public Animator anim;
 	int side;
 	int attackCount;
@@ -27,7 +26,6 @@ public class ZombieController : Personnage {
         if (actif)
         {
             base.Update();
-            cameraFollow();
 
             if ((sex == "F" && Input.GetKeyDown(KeyCode.RightArrow)) || (sex == "M" && Input.GetKeyDown(KeyCode.D)))
             {
@@ -137,12 +135,6 @@ public class ZombieController : Personnage {
         {
             speed = maxSpeed;
         }
-    }
-
-    void cameraFollow()
-    {
-        Vector3 cameraPosition = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y, 0);
-        Camera.main.transform.Translate(transform.position - cameraPosition);
     }
 
 	string getKillerName()

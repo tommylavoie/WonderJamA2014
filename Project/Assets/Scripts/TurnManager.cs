@@ -9,6 +9,8 @@ public class TurnManager {
 	public ZombieController zombieMale;
 	public ZombieController zombieFemale;
 
+	public int next;
+
     public static TurnManager getInstance()
     {
         if (instance == null)
@@ -20,7 +22,7 @@ public class TurnManager {
 
     private TurnManager()
     {
-        
+		next = 0;
     }
 
     public void changeActivePlayer()
@@ -30,7 +32,9 @@ public class TurnManager {
 
 		if (zombieMale.actif) 
 		{
-			EnemyManager.getInstance().updateEnemies ();
+			zombieMale.actif = false;
+			next = 0;
+			EnemyManager.getInstance().updateEnemy(0);
 		}
 
 		if(zombieMale.vie <= 0)
@@ -42,6 +46,19 @@ public class TurnManager {
 		{
 			zombieFemale.actif = true;
 			zombieMale.actif = false;
+		}
+	}
+
+	public void nextEnemy()
+	{
+		next++;
+		if(next < EnemyManager.getInstance().lesEnemies.Count)
+		{
+			EnemyManager.getInstance().updateEnemy(next);
+		}
+		else
+		{
+			zombieMale.actif = true;
 		}
 	}
 }
