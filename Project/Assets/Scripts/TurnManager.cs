@@ -36,17 +36,6 @@ public class TurnManager {
 			next = 0;
 			EnemyManager.getInstance().updateEnemy(0);
 		}
-
-		if(zombieMale.vie <= 0)
-		{
-			zombieMale.actif = true;
-			zombieFemale.actif = false;
-		}
-		else if(zombieFemale.vie <= 0)
-		{
-			zombieFemale.actif = true;
-			zombieMale.actif = false;
-		}
 	}
 
 	public void nextEnemy()
@@ -59,6 +48,16 @@ public class TurnManager {
 		else
 		{
 			zombieMale.actif = true;
+			if(zombieMale.vie <= 0)
+			{
+				zombieMale.actif = true;
+				zombieFemale.actif = false;
+			}
+			else if(zombieFemale.vie <= 0)
+			{
+				zombieFemale.actif = true;
+				zombieMale.actif = false;
+			}
 		}
 	}
 }
