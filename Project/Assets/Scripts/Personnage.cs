@@ -159,7 +159,7 @@ public class Personnage : Entity {
 
     public void movementSynchronisation()
     {
-        System.Threading.Thread.Sleep(300);
+        //System.Threading.Thread.Sleep(300);
         TurnManager.getInstance().changeActivePlayer();
         EnemyManager.getInstance().updateEnemies();
     }
