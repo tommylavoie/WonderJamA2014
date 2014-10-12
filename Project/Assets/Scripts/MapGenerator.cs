@@ -251,7 +251,7 @@ public class MapGenerator : MonoBehaviour
 			
 			if(tileManager.getTile(x,y).getType() == Tile.GROUND && !isCharacterOnTile(x,y))
 			{
-				int type = Random.Range(0, 2);
+				int type = Random.Range(0, 3);
 				if(type == EnemyScript.GHOST)
 				{
 					ghost.transform.position = new Vector3(initialY+(10*x),initialX+(10*y), 0);
