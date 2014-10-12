@@ -47,82 +47,83 @@ public class EnemyScript : Personnage {
 
     // Function 
     public void Action() {
-        while (speed > 0)
+		int lastResort = 0;
+        while (speed > 0 && lastResort < 5)
         {
             ZombieController player = isThereNearbyPlayer();
             if (player == null)
             { // Attack if there's a player nearby, move if not
-				int random = Random.Range(0, 4);
+				int random = Random.Range(0, 3);
                 switch (random)
                 {
-
-                    case 0:{
-                        bool canMove = true;
-                        foreach (Entity e in TileManager.getInstance().getTile(getX() + 1, getY()).getEntities())
-                        {
-                            if (e.getIdentity() == "Enemy")
-                                canMove = false;
-                        }
-                        if (canMove)
-                            MoveRight();
-                        break;}
-                    case 1: {
-                        bool canMove = true;
-                        foreach (Entity e in TileManager.getInstance().getTile(getX() - 1, getY()).getEntities())
-                        {
-                            if (e.getIdentity() == "Enemy")
-                                canMove = false;
-                        }
-                        if (canMove)
-                            MoveLeft();
-                        break;}
-                    case 2: {
-                            bool canMove = true;
-                            foreach (Entity e in TileManager.getInstance().getTile(getX(), getY() + 1).getEntities())
-                            {
-                                if (e.getIdentity() == "Enemy")
-                                    canMove = false;
-                            }
-                            if (canMove)
-                                MoveForward();
-                            break;}
-                    case 3:{
-                        bool canMove = true;
-                        foreach (Entity e in TileManager.getInstance().getTile(getX(), getY() - 1).getEntities())
-                        {
-                            if (e.getIdentity() == "Enemy")
-                                MoveBackward();
-                        }
-                        if (canMove)
-                            MoveBackward();
-                        break;}
-                }
-            }
-            else // ATTACK THE PLAYER
-            {
-                Attack(player);
-            }
-        }
-    }
-
-    // Check if there's a player in one of the four adjacent tile (will only one if the 2 player are adjacent to the enemy
-    ZombieController isThereNearbyPlayer() {
-        foreach (Entity e in TileManager.getInstance().getTile(getX() + 1, getY()).getEntities())
-            if (e.getIdentity() == "Player") 
-            {
-                return (ZombieController)e;
-            }
-        foreach (Entity e in TileManager.getInstance().getTile(getX() - 1, getY()).getEntities())
-            if (e.getIdentity() == "Player")
-            {
-                return (ZombieController)e;
-            }
-        foreach (Entity e in TileManager.getInstance().getTile(getX(), getY() + 1).getEntities())
-            if (e.getIdentity() == "Player")
-            {
-                return (ZombieController)e;
-            }
-        foreach (Entity e in TileManager.getInstance().getTile(getX(), getY() - 1).getEntities())
+					case 0:{
+						bool canMove = true;
+						foreach (Entity e in TileManager.getInstance().getTile(getX() + 1, getY()).getEntities())
+						{
+							if (e.getIdentity() == "Enemy")
+								canMove = false;
+						}
+						if (canMove)
+							MoveRight();
+						break;}
+					case 1: {
+						bool canMove = true;
+						foreach (Entity e in TileManager.getInstance().getTile(getX() - 1, getY()).getEntities())
+						{
+							if (e.getIdentity() == "Enemy")
+								canMove = false;
+						}
+						if (canMove)
+							MoveLeft();
+						break;}
+					case 2: {
+						bool canMove = true;
+						foreach (Entity e in TileManager.getInstance().getTile(getX(), getY() + 1).getEntities())
+						{
+							if (e.getIdentity() == "Enemy")
+								canMove = false;
+						}
+						if (canMove)
+							MoveForward();
+						break;}
+					case 3:{
+						bool canMove = true;
+						foreach (Entity e in TileManager.getInstance().getTile(getX(), getY() - 1).getEntities())
+						{
+							if (e.getIdentity() == "Enemy")
+								MoveBackward();
+						}
+						if (canMove)
+							MoveBackward();
+						break;}
+					}
+			}
+			else // ATTACK THE PLAYER
+			{
+				Attack(player);
+			}
+			lastResort++;
+		}
+	}
+	
+	// Check if there's a player in one of the four adjacent tile (will only one if the 2 player are adjacent to the enemy
+	ZombieController isThereNearbyPlayer() {
+		foreach (Entity e in TileManager.getInstance().getTile(getX() + 1, getY()).getEntities())
+			if (e.getIdentity() == "Player") 
+		{
+			return (ZombieController)e;
+		}
+		foreach (Entity e in TileManager.getInstance().getTile(getX() - 1, getY()).getEntities())
+			if (e.getIdentity() == "Player")
+		{
+			return (ZombieController)e;
+		}
+		foreach (Entity e in TileManager.getInstance().getTile(getX(), getY() + 1).getEntities())
+			if (e.getIdentity() == "Player")
+		{
+			return (ZombieController)e;
+		}
+		foreach (Entity e in TileManager.getInstance().getTile(getX(), getY() - 1).getEntities())
             if (e.getIdentity() == "Player")
             {
                 return (ZombieController)e;
