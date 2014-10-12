@@ -99,9 +99,7 @@ public class Personnage : Entity {
                 else
                     decreaseSpeed(1);
                 if (TileManager.getInstance().getTile(getX(), getY()).getType() == Tile.SPIKE)
-                { 
                     vie -= 3;
-                }
             }
         }
     }
