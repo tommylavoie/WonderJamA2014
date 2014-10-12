@@ -21,15 +21,7 @@ class TileManager
 
 	private TileManager()
 	{
-		tiles = new Tile[MapGenerator.width][];
-		for(int i=0;i<MapGenerator.width;i++)
-		{
-			tiles[i] = new Tile[MapGenerator.height];
-            for (int j = 0; j < MapGenerator.height; j++)
-            {
-                tiles[i][j] = new Tile(Tile.EMPTY);
-            }
-		}
+		resetTiles();
 	}
 
 	public Tile getTile(int x, int y)
@@ -52,4 +44,17 @@ class TileManager
         tiles[oldX][oldY].removeEntity(entity);
         tiles[newX][newY].addEntity(entity);
     }
+
+	public void resetTiles()
+	{
+		tiles = new Tile[MapGenerator.width][];
+		for(int i=0;i<MapGenerator.width;i++)
+		{
+			tiles[i] = new Tile[MapGenerator.height];
+			for (int j = 0; j < MapGenerator.height; j++)
+			{
+				tiles[i][j] = new Tile(Tile.EMPTY);
+			}
+		}
+	}
 }
