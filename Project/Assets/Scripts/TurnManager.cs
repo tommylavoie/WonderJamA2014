@@ -27,7 +27,12 @@ public class TurnManager {
     {
 		zombieMale.changeActive();
 		zombieFemale.changeActive();
-		EnemyManager.getInstance().updateEnemies();
+
+		if (zombieMale.actif) 
+		{
+			EnemyManager.getInstance().updateEnemies ();
+		}
+
 		if(zombieMale.vie <= 0)
 		{
 			zombieMale.actif = true;
