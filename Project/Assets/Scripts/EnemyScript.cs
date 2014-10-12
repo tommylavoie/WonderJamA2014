@@ -23,9 +23,9 @@ public class EnemyScript : Personnage {
 		{
 			// setStats(vie, Attack, speed)
 			// ADD SPRITE FOR EVERYONE
-			case 0: setStats(3, 1, 4); break;
-			case 1: setStats(10, 1, 1); break;
-			case 2: setStats(5, 3, 1); break;
+			case 0: setStats(3, 1, 5); break;
+			case 1: setStats(10, 5, 1); break;
+			case 2: setStats(5, 3, 3); break;
 		}
 	}
 
